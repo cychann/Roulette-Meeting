@@ -4,30 +4,31 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from accountapp.forms import passwordUpdateForm, usernameUpdateForm
-
+from accountapp.forms import RegisterForm, passwordUpdateForm, usernameUpdateForm
+from accountapp.models import UserModel
 
 # Create your views here.
+
 
 def homePage(request):
     return render(request, 'base.html')
 
 
 class accountCreateView(CreateView):
-    model = User
-    form_class = UserCreationForm
+    model = UserModel
+    form_class = RegisterForm
     success_url = reverse_lazy('home')
     template_name = 'accountapp/create.html'
 
 
 class accountDetailView(DetailView):
-    model = User
+    model = UserModel
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
 
 
 class passwordUpdateView(UpdateView):
-    model = User
+    model = UserModel
     form_class = passwordUpdateForm
     context_object_name = 'target_user'
     success_url = reverse_lazy('home')
@@ -41,7 +42,7 @@ class passwordUpdateView(UpdateView):
 
 
 class usernameUpdateView(UpdateView):
-    model = User
+    model = UserModel
     form_class = usernameUpdateForm
     context_object_name = 'target_user'
     success_url = reverse_lazy('home')
@@ -55,7 +56,7 @@ class usernameUpdateView(UpdateView):
 
 
 class accountDeleteView(DeleteView):
-    model = User
+    model = UserModel
     context_object_name = 'target_user'
     success_url = reverse_lazy('home')
     template_name = 'accountapp/delete.html'
