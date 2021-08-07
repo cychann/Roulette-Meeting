@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div style="text-align: center;">
+        <div>
+            <h4>
+                About User
+            </h4>
+            <h2>{{user.username}}</h2>
+        </div>
+        {% if target_user == user %}
+        <a href="{% url 'accountapp:update_password' pk=target_user.pk %}">
+            <p>비밀번호 변경</p>
+        </a>
+        <a href="{% url 'accountapp:update_username' pk=target_user.pk %}">
+            <p>사용자 ID 변경</p>
+        </a>
+        <a href="{% url 'accountapp:delete' pk=target_user.pk%}">
+            <p>사용자 삭제</p>
+        </a>
+
+        
+        {% endif %}
+
+        
+    </div>
+    
+    
+{% endblock %}

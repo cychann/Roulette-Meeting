@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+    {% include 'head.html' %}
+<body>
+    {% include 'header.html' %}
+    <hr>
+    <div>
+        {{user.username}}
+    </div>
+    {% block content %}
+    {% endblock %}
+    <hr>
+    
+</body>
+</html>
