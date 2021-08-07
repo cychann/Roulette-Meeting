@@ -22,7 +22,7 @@ class passwordUpdateForm(UserCreationForm):
 class usernameUpdateForm(ModelForm):
     class Meta:
         model = UserModel
-        fields = ['username']
+        fields = ['nickname']
 
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)

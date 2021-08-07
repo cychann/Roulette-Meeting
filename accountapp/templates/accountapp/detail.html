@@ -7,14 +7,14 @@
             <h4>
                 About User
             </h4>
-            <h2>{{user.username}}</h2>
+            <h2>{{user.nickname}}</h2>
         </div>
         {% if target_user == user %}
         <a href="{% url 'accountapp:update_password' pk=target_user.pk %}">
             <p>비밀번호 변경</p>
         </a>
-        <a href="{% url 'accountapp:update_username' pk=target_user.pk %}">
-            <p>사용자 ID 변경</p>
+        <a href="{% url 'accountapp:update_nickname' pk=target_user.pk %}">
+            <p>닉네임 변경</p>
         </a>
         <a href="{% url 'accountapp:delete' pk=target_user.pk%}">
             <p>사용자 삭제</p>

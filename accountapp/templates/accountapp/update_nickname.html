@@ -6,7 +6,7 @@
         <div class="mb-4">
             <h4>Change Info</h4>
         </div>
-        <form action="{% url 'accountapp:update_username' pk=target_user.pk %}" method="POST">
+        <form action="{% url 'accountapp:update_nickname' pk=target_user.pk %}" method="POST">
             {% csrf_token %}
             {% bootstrap_form form %}
             <input type="submit" class="btn btn-primary" name="" id="">

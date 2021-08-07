@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.http import HttpResponseForbidden
 
 from accountapp.forms import RegisterForm, passwordUpdateForm, usernameUpdateForm
 from accountapp.models import UserModel
@@ -46,7 +47,7 @@ class usernameUpdateView(UpdateView):
     form_class = usernameUpdateForm
     context_object_name = 'target_user'
     success_url = reverse_lazy('home')
-    template_name = 'accountapp/update_username.html'
+    template_name = 'accountapp/update_nickname.html'
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated and self.get_object() == self.request.user:

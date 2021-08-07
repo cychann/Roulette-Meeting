@@ -16,7 +16,7 @@ urlpatterns = [
     path('update_password/<int:pk>',
          passwordUpdateView.as_view(), name='update_password'),
     path('update_username/<int:pk>',
-         usernameUpdateView.as_view(), name='update_username'),
+         usernameUpdateView.as_view(), name='update_nickname'),
     path('delete/<int:pk>', accountDeleteView.as_view(), name='delete'),
 
 ]
