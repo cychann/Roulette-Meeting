@@ -12,7 +12,7 @@ from accountapp.models import UserModel
 
 
 def homePage(request):
-    return render(request, 'base.html')
+    return render(request, 'main.html')
 
 
 class accountCreateView(CreateView):
