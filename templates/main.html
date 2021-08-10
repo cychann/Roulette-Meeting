@@ -1,0 +1,45 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav_container">
+            <div style="display: flex;">
+                <div>
+                    <img src="{% static 'navicon.png' %}"  width="30px" style="vertical-align: middle; padding-top: 0.5rem; ">
+                </div>
+                
+                <div class="nav_div_left">
+                    <font class="nav_font_left">Roulette Meetings</font>
+                </div> 
+            </div>
+            
+    
+            <div class="nav_div_right">
+                <font class="nav_font_right">
+                    <font style="color: #e18411; padding-right: 1.5rem; ">Home</font>
+                    <font style="color: #cd2002; padding-right: 1.5rem; ">Join</font>
+                    <font style="color: #0070e2;  ">Login</font>
+                </font>
+            </div>   
+        </div>
+    </nav>
+
+    <div class="body_div_left">
+        <img src="{% static '02.png' %}" style="padding-top: 10rem; width: 750px; margin-left: 3rem;">
+        <br>
+        <button class="button_newmeeting">새 회의</button> 
+        <button class="button_connectmeeting">초대코드 입력</button>
+    </div>
+    <div class="body_div_right">
+        <img src="{% static '01.png' %}" style="padding-top: 10rem; padding-right: 3rem; width: 700px;">
+    </div>
+
+    
+</body>
+

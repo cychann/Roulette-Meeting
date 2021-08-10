@@ -1,0 +1,89 @@
+body {
+    background-image: url("./배경.png");
+}
+
+.navbar{
+    background-color: rgba(0,0,0,0)!important;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    padding-top: 1rem;
+    line-height: 3rem;
+    
+}
+
+.nav_font_left{
+    color: white;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+}
+
+.nav_font_right{
+    padding-left: 50rem;
+    text-align: right;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+    
+}
+
+.nav_container{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.nav_div_left{
+    color: #999999;
+    vertical-align: middle;
+    padding-left: 1rem;
+    font-weight: 700;
+    
+}
+
+.nav_div_right{
+    text-align: right;
+    vertical-align: middle;
+    font-weight: 700;
+    
+}
+
+
+.body_div_left{
+    float: left;
+    margin-left: 3rem;
+}
+
+.body_div_right{
+    float: right;
+    margin-right: 5rem;
+}
+
+.button_newmeeting{
+    background-color: #cd2002;
+    color: white;
+    box-shadow: black 5px 5px ;
+    border-radius: 50px;
+    border: 1px solid black;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    margin-left: 9rem;
+    margin-top: 2.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.button_connectmeeting{
+    background-color: #202121;
+    color: white;
+    box-shadow: black 5px 7px ;
+    border-radius: 50px;
+    border: 1px solid white;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    margin-left: 3rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
