@@ -1,3 +1,8 @@
+a:link { text-decoration: none;}
+a:visited { text-decoration: none;}
+a:hover { text-decoration: underline;}
+
+
 body {
     background-image: url("./배경.png");
 }
@@ -18,9 +23,7 @@ body {
 }
 
 .nav_font_right{
-    padding-left: 50rem;
     text-align: right;
-    padding-left: 1rem;
     font-size: 1.2rem;
     
 }
@@ -43,6 +46,7 @@ body {
     text-align: right;
     vertical-align: middle;
     font-weight: 700;
+    padding-right: 1rem;
     
 }
 
