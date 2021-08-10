@@ -40,8 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 프로젝트 앱
     'accountapp',
-    'bootstrap4'
+    'meeting',
+
+    # 설치 앱
+    'bootstrap4',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +79,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'RouletteMeeting.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -126,3 +131,14 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world')
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
+
+# Channels 설정
+ASGI_APPLICATION = 'RouletteMeeting.asgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
