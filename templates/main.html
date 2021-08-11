@@ -33,12 +33,12 @@
                 {% if not user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accountapp:login' %}?next={{ request.path }}">
-                        <span style="color: #0070e2;">Login</span>
+                        <span style="color: #0070e2; ">Login</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accountapp:create' %}">
-                        <span style="color: #cd2002;">SignUp</span>
+                        <span style="color: #cd2002; ">SignUp</span>
                     </a>
                 </li>
                 {% else %}

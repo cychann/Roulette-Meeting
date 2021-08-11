@@ -20,6 +20,7 @@ body {
   margin-left: auto;
   text-align: right;
   font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .navbar-brand {
@@ -40,6 +41,7 @@ body {
 .nav_span_right {
   text-align: right;
   font-size: 1.2rem;
+  
 }
 
 .nav_container {
@@ -72,7 +74,7 @@ body {
   padding-bottom: 0.8rem;
   margin-left: 9rem;
   margin-top: 2.5rem;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 1rem;
 }
 
@@ -87,6 +89,6 @@ body {
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   margin-left: 3rem;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 1rem;
 }
