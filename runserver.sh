@@ -26,7 +26,7 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application -k ${GUNICORN_WORKER} \
     --name $NAME \
     --workers $NUM_WORKERS \
     --user=$USER \
-    --bind=127.0.0.1:7000 \
+    --bind=0.0.0.0:8000 \
     --threads=1000 \
     --log-level=debug \
     --log-file=- \
