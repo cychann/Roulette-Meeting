@@ -1,22 +1,13 @@
-/**
- * @author Amir Sanni <amirsanni@gmail.com>
- * @date 6th January, 2020
- */
 import h from './helpers.js';
 console.log("this is rtc.js")
 window.addEventListener('load', () => {
-    const room = h.getQString(location.href, 'room');
-    const username = sessionStorage.getItem('username');
-    console.log("rtc.js window load", room, username)
+    const room = h.getQString(window.location.href, "room");
+    const state = JSON.parse(sessionStorage.getItem(room)) || {};
+    const username = state.username;
 
-    if (!room) {
-        document.querySelector('#room-create').attributes.removeNamedItem('hidden');
-        console.log("rtc.js window load not room")
-    }
-
-    else if (!username) {
-        document.querySelector('#username-set').attributes.removeNamedItem('hidden');
-        console.log("rtc.js window load not username")
+    if (!room || !username) {
+        alert("잘못된 접근입니다.");
+        window.location.href = "/";
     }
 
     else {
