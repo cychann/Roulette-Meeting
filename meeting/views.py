@@ -32,6 +32,7 @@ def subscribe(sid, data):
             'new user',
             namespace=NS,
             room=data["room"],
+            skip_sid=sid,
             data={
                 "socketId": data["socketId"],
                 "username": data["username"],
@@ -46,6 +47,7 @@ def newUserStart(sid, data):
         'newUserStart',
         namespace=NS,
         to=data["to"],
+        skip_sid=sid,
         data={
             "sender": data["sender"],
             "username": data["username"]
