@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
 
     if (!room || !username) {
         alert("잘못된 접근입니다.");
-        window.location.href = "/";
+        window.location.replace(window.location.origin);
     }
 
     else {
