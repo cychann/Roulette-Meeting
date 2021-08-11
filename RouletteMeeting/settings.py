@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 
     # 설치 앱
     'bootstrap4',
-    'channels',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +77,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'RouletteMeeting.asgi.application'
 WSGI_APPLICATION = 'RouletteMeeting.wsgi.application'
 
 # Database
@@ -132,14 +132,3 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates', 'static')]
 
 LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world')
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
-
-# Channels 설정
-ASGI_APPLICATION = 'RouletteMeeting.asgi.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
