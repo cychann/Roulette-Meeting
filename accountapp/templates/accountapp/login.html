@@ -52,16 +52,18 @@
 
 {% block content %}
 
-    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
-        <div>
-            <h4>Login</h4>
-        </div>
-        <div>
-            <form action="" method="post">
-                {% csrf_token %}
-                {% bootstrap_form form%}
-                <input type="submit" class="btn btn-dark rounded-pill col-6 mt-3" name="" id="">
-            </form>
-        </div>
+<div style=" max-width: 500px; margin: 4rem auto;">
+    <div class="mb-4" style="text-align: center;">
+        <h4 style="font-weight: 700;">로그인</h4>
     </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div style="margin-left: 70px;">
+            {% bootstrap_form form layout='inline' form_group_class='mb-3 col-10'%}
+        </div>
+        <div style="text-align: center;">
+            <input type="submit" class="btn btn-danger rounded-pill col-8 mt-3" name="" id="">
+        </div>
+    </form>
+</div>
 {% endblock%}
