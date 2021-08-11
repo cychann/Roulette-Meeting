@@ -13,8 +13,8 @@ bind = environ.get("HOST", "0.0.0.0") + ":" + environ.get("PORT", "7000")
 
 # Worker
 worker_class = 'eventlet'
-workers = cpu_count()
-threads = workers * 4
+workers = 1  # cpu_count()
+threads = 1000
 
 # HTTP
 max_requests = 1000
