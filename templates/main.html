@@ -16,7 +16,7 @@
                 
                 <div class="nav_div_left">
                     <a href="{% url 'home' %}">
-                        <font class="nav_font_left">Roulette Meetings</font>
+                        <span class="nav_span_left">Roulette Meetings</span>
                     </a>
                     
                 </div> 
@@ -24,29 +24,29 @@
             
     
             <div class="nav_div_right">
-                <font class="nav_font_right">
+                <span class="nav_span_right">
                     <a href="{% url 'home' %}">
-                        <font style="color: #e18411; padding-right: 1.5rem; ">Home</font>
+                        <span style="color: #e18411; padding-right: 1.5rem; ">Home</span>
                     </a>
                                         
                     {% if not user.is_authenticated %}
                     <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
-                        <font style="color: #0070e2; padding-right: 1.5rem;  ">Login</font>
+                        <span style="color: #0070e2; padding-right: 1.5rem;  ">Login</span>
                     </a>
                     <a href="{% url 'accountapp:create' %}">
-                        <font style="color: #cd2002;  ">SignUp</font>
+                        <span style="color: #cd2002;  ">SignUp</span>
                     </a>
                     {% else %}
 
                     <a href="{% url 'accountapp:detail' pk=user.pk%}">
-                        <font style="color: #0070e2; padding-right: 1.5rem; ">Mypage</font>
+                        <span style="color: #0070e2; padding-right: 1.5rem; ">Mypage</span>
                     </a>
                     <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
-                        <font style="color: #cd2002;  ">Logout</font>
+                        <span style="color: #cd2002;  ">Logout</span>
                     </a>
                     {% endif %}
                     
-                </font>
+                </span>
             </div>   
         </div>
     </nav>
