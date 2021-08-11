@@ -1,8 +1,10 @@
+import os
 import logging
 import socketio
 from django.shortcuts import render
 
-mgr = socketio.RedisManager('redis://')
+redis = os.getenv("REDIS_URL", "redis://")
+mgr = None  # socketio.RedisManager(redis)
 sio = socketio.Server(async_mode='eventlet', client_manager=mgr)
 
 

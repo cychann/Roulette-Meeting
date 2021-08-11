@@ -19,3 +19,7 @@ soupsieve==2.2.1
 sqlparse==0.4.1
 toml==0.10.2
 typing-extensions==3.10.0.0
+whitenoise
+django-redis
+dj_database_url
+psycopg2-binary
