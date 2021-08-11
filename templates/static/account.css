@@ -1,0 +1,49 @@
+a:link { text-decoration: none;}
+a:visited { text-decoration: none;}
+a:hover { text-decoration: underline;}
+
+
+.navbar{
+    background-color: rgba(0,0,0,0)!important;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    padding-top: 1rem;
+    line-height: 3rem;
+    
+    
+}
+
+.nav_span_left{
+    color: black;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.nav_span_right{
+    text-align: right;
+    font-size: 1.2rem;
+    
+}
+
+.nav_container{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.nav_div_left{
+    color: #999999;
+    vertical-align: middle;
+    padding-left: 1rem;
+    font-weight: 700;
+    
+}
+
+.nav_div_right{
+    text-align: right;
+    vertical-align: middle;
+    font-weight: 700;
+    padding-right: 1rem;
+    
+}

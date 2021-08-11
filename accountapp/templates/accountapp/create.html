@@ -1,5 +1,55 @@
-{% extends 'base.html' %}
+{% load static %}
 {% load bootstrap4 %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'account.css' %}">
+   
+</head>
+
+
+<nav class="navbar">
+    <div class="nav_container">
+        <div style="display: flex;">
+            <div>
+                <img src="{% static 'target.png' %}"  width="30px" style="vertical-align: middle; padding-top: 0.5rem; ">
+            </div>
+            
+            <div class="nav_div_left">
+                <a href="{% url 'home' %}">
+                    <span class="nav_span_left">Roulette Meetings</span>
+                </a>
+                
+            </div> 
+        </div>
+        
+
+        <div class="nav_div_right">
+            <span class="nav_span_right">
+                <a href="{% url 'home' %}">
+                    <span style="color: #e18411; padding-right: 1.5rem; ">Home</span>
+                </a>
+                                    
+                {% if not user.is_authenticated %}
+                <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+                    <span style="color: #0070e2; padding-right: 1.5rem;  ">Login</span>
+                </a>
+                <a href="{% url 'accountapp:create' %}">
+                    <span style="color: #cd2002;  ">SignUp</span>
+                </a>
+                {% else %}
+
+                <a href="{% url 'accountapp:detail' pk=user.pk%}">
+                    <span style="color: #0070e2; padding-right: 1.5rem; ">Mypage</span>
+                </a>
+                <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
+                    <span style="color: #cd2002;  ">Logout</span>
+                </a>
+                {% endif %}
+                
+            </span>
+        </div>   
+    </div>
+</nav>
 
 {% block content %}
     <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
