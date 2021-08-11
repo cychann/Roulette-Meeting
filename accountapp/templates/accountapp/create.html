@@ -3,27 +3,23 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'account.css' %}">
-   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
 </head>
 
 
-<nav class="navbar">
-    <div class="nav_container">
-        <div style="display: flex;">
-            <div>
-                <img src="{% static 'target.png' %}"  width="30px" style="vertical-align: middle; padding-top: 0.5rem; ">
-            </div>
-            
-            <div class="nav_div_left">
-                <a href="{% url 'home' %}">
-                    <span class="nav_span_left">Roulette Meetings</span>
-                </a>
-                
-            </div> 
-        </div>
+<body>
+    <nav class="navbar">
         
+        <div class="container-fluid">
+            
+            
+            <a href="{% url 'home' %}">
+                <img src="{% static 'target.png' %}"  width="30px">
+                <span class="nav_span_left">Roulette Meetings</span>
+            </a>
 
-        <div class="nav_div_right">
             <span class="nav_span_right">
                 <a href="{% url 'home' %}">
                     <span style="color: #e18411; padding-right: 1.5rem; ">Home</span>
@@ -45,11 +41,13 @@
                     <span style="color: #cd2002;  ">Logout</span>
                 </a>
                 {% endif %}
-                
+                    
             </span>
-        </div>   
-    </div>
-</nav>
+        </div>
+         
+    </nav>
+
+
 
 {% block content %}
     <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
