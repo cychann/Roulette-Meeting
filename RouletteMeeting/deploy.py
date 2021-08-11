@@ -2,7 +2,9 @@ from .settings import *
 
 import dj_database_url
 
+DEBUG = False if os.environ.get("DEBUG", "False").lower() == "false" else True
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', SECRET_KEY)
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split()
 
 db_default = os.environ.get("DEFAULT_POSTGRESS")
 db_from_env = dj_database_url.config(conn_max_age=500, default=db_default)
