@@ -63,6 +63,10 @@ body {
     margin-right: 5rem;
 }
 
+.button:hover {
+    cursor: pointer;
+}
+
 .button_newmeeting{
     background-color: #cd2002;
     color: white;

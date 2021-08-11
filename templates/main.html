@@ -1,66 +1,105 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<head>
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-</head>
+{% block head %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+<link rel="stylesheet" href="{% static 'micromodal.css' %}">
+{% endblock %}
 
-
-<body>
-
-    <nav class="navbar">
-        <div class="nav_container">
-            <div style="display: flex;">
-                <div>
-                    <img src="{% static 'navicon.png' %}"  width="30px" style="vertical-align: middle; padding-top: 0.5rem; ">
-                </div>
-                
-                <div class="nav_div_left">
-                    <a href="{% url 'home' %}">
-                        <span class="nav_span_left">Roulette Meetings</span>
-                    </a>
-                    
-                </div> 
+{% block content %}
+<nav class="navbar">
+    <div class="nav_container">
+        <div style="display: flex;">
+            <div>
+                <img src="{% static 'navicon.png' %}" width="30px"
+                    style="vertical-align: middle; padding-top: 0.5rem; ">
             </div>
-            
-    
-            <div class="nav_div_right">
-                <span class="nav_span_right">
-                    <a href="{% url 'home' %}">
-                        <span style="color: #e18411; padding-right: 1.5rem; ">Home</span>
-                    </a>
-                                        
-                    {% if not user.is_authenticated %}
-                    <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
-                        <span style="color: #0070e2; padding-right: 1.5rem;  ">Login</span>
-                    </a>
-                    <a href="{% url 'accountapp:create' %}">
-                        <span style="color: #cd2002;  ">SignUp</span>
-                    </a>
-                    {% else %}
 
-                    <a href="{% url 'accountapp:detail' pk=user.pk%}">
-                        <span style="color: #0070e2; padding-right: 1.5rem; ">Mypage</span>
-                    </a>
-                    <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
-                        <span style="color: #cd2002;  ">Logout</span>
-                    </a>
-                    {% endif %}
-                    
-                </span>
-            </div>   
+            <div class="nav_div_left">
+                <a href="{% url 'home' %}">
+                    <span class="nav_span_left">Roulette Meetings</span>
+                </a>
+
+            </div>
         </div>
-    </nav>
 
-    <div class="body_div_left">
-        <img src="{% static '최종.png' %}" style="padding-top: 10rem; width: 750px; margin-left: 3rem;">
-        <br>
-        <button class="button_newmeeting">새 회의</button> 
-        <button class="button_connectmeeting">초대코드 입력</button>
+        <div class="nav_div_right">
+            <span class="nav_span_right">
+                <a href="{% url 'home' %}">
+                    <span style="color: #e18411; padding-right: 1.5rem; ">Home</span>
+                </a>
+
+                {% if not user.is_authenticated %}
+                <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+                    <span style="color: #0070e2; padding-right: 1.5rem;  ">Login</span>
+                </a>
+                <a href="{% url 'accountapp:create' %}">
+                    <span style="color: #cd2002;  ">SignUp</span>
+                </a>
+                {% else %}
+
+                <a href="{% url 'accountapp:detail' pk=user.pk%}">
+                    <span style="color: #0070e2; padding-right: 1.5rem; ">Mypage</span>
+                </a>
+                <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
+                    <span style="color: #cd2002;  ">Logout</span>
+                </a>
+                {% endif %}
+
+            </span>
+        </div>
     </div>
-    <div class="body_div_right">
-        <img src="{% static '01.png' %}" style="padding-top: 10rem; padding-right: 3rem; width: 700px;">
+</nav>
+
+<div class="body_div_left">
+    <img src="{% static '최종.png' %}" style="padding-top: 10rem; width: 750px; margin-left: 3rem;">
+    <br>
+    <button class="button button_newmeeting" id="new-meeting-btn">새 회의</button>
+    <button class="button button_connectmeeting">초대코드 입력</button>
+</div>
+<div class="body_div_right">
+    <img src="{% static '01.png' %}" style="padding-top: 10rem; padding-right: 3rem; width: 700px;">
+</div>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+                <h2 class="modal__title" id="modal-1-title">
+                    새 회의 정보를 적어주세요.
+                </h2>
+                <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+                회의 이름과 회의에서 사용하실 이름을 적어주세요.
+                <br>
+                <br>
+                <form id="new-meeting-form">
+                    <div class="form-group">
+                        <label for="meeting-name"><strong>회의 이름</strong></label>
+                        <input type="text" class="form-control" id="meeting-name" placeholder="회의 이름을 적어주세요." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username-for-meeting"><strong>사용할 이름</strong></label>
+                        <input type="text" class="form-control" id="username-for-meeting"
+                            placeholder="회의에서 사용할 이름을 적어주세요." required>
+                    </div>
+                    <br>
+                    <button type="submit" class="modal__btn modal__btn-primary" id="start-new-meeting">회의 시작</button>
+                    <button type="button" class="modal__btn" data-micromodal-close
+                        aria-label="Close this dialog window">취소</button>
+                </form>
+            </main>
+
+        </div>
     </div>
+</div>
+{% endblock %}
 
-    
-</body>
-
+{% block js %}
+<script>
+    const meetingRoomBaseUrl = "{% url 'meeting:index' %}";
+</script>
+<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+<script src="{% static 'main.js' %}"></script>
+{% endblock %}
