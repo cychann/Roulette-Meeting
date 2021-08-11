@@ -1,0 +1,27 @@
+
+body {
+    background-image: url("./배경.png");
+}
+
+
+img{
+    width: 5rem;
+    height: 5rem;
+
+}
+
+.container{
+    display: flex;
+    
+}
+
+button{
+    background-color: rgba(0,0,0,0)!important;
+    border: 0;
+}
+
+.using_button{
+    display: flex;
+    justify-content: space-between;
+    
+}
