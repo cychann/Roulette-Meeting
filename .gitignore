@@ -1,4 +1,4 @@
-myvenv 
+myvenv
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python
@@ -216,3 +216,4 @@ cython_debug/
 # Cython debug symbols
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python
+staticfiles/
