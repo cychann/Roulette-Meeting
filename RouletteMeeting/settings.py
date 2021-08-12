@@ -27,6 +27,7 @@ SECRET_KEY = '#%$*72tdiu4g*9%s38*5m-e1i(n4s7v!-z8#cxw+fvlutlg#8r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
+DEPLOY = os.getenv('DEPLOY',  str(not DEBUG)).lower() in ('true', '1', 't')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -135,10 +136,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
 
-if not DEBUG:
+if DEPLOY:
     import dj_database_url
 
     print("DEBUG", DEBUG)
+    print("DEPLOY", DEPLOY)
     SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", SECRET_KEY)
     ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split()
 
