@@ -56,9 +56,8 @@
         </div>
         <form action="{% url 'accountapp:create' %}" method="POST">
             {% csrf_token %}
-            <!-- {% bootstrap_form form %} -->
             <div style="margin-left: 70px;">
-                {% bootstrap_form form layout='inline' form_group_class='mb-3 col-10'%}
+                {% bootstrap_form form layout='inline' form_group_class='mb-3 col-10' label_class='mb-2'%}
             </div>
             <div style="text-align: center;">
                 <input type="submit" class="btn btn-danger rounded-pill col-8 mt-3" name="" id="">
