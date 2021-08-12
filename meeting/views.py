@@ -1,15 +1,39 @@
+
+from django.http.response import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 import os
 import logging
 import socketio
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from .models import Meeting
+from .forms import MeetingForm
+
 
 redis = os.getenv("REDIS_URL", "redis://")
-mgr = None  # socketio.RedisManager(redis)
+mgr = socketio.RedisManager(redis)
 sio = socketio.Server(async_mode='eventlet', client_manager=mgr)
 
 
 def index(request):
-    return render(request, 'meeting/index.html')
+    meeting = get_object_or_404(Meeting, id=request.GET.get("room"))
+    return render(request, 'meeting/index.html', {"meeting": meeting})
+
+
+@login_required
+def create_meeting(request):
+    if request.method == "POST":
+        form = MeetingForm(data=request.POST)
+        if form.is_valid():
+            meeting = form.save()
+            return JsonResponse({
+                "id": meeting.id,
+                "name": meeting.name,
+            }, status=201)
+    return JsonResponse({
+        "error": "잘못된 접근입니다.",
+    }, status=400)
 
 
 gunicorn_logger = logging.getLogger("gunicorn.error")
