@@ -130,6 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates', 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
@@ -155,7 +156,6 @@ if not DEBUG:
         }
     }
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     MIDDLEWARE += [
         "whitenoise.middleware.WhiteNoiseMiddleware",
     ]
