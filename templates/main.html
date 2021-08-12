@@ -98,13 +98,16 @@
 <div class="body_div_left">
     <img src="{% static '최종.png' %}" style="padding-top: 10rem; width: 750px; margin-left: 3rem;">
     <br>
+    {% if user.is_authenticated %}
     <button class="button button_newmeeting" id="start-new-meeting-modal-btn">새 회의</button>
+    {% endif %}
     <button class="button button_connectmeeting" id="enter-meeting-modal-btn">초대코드 입력</button>
 </div>
 <div class="body_div_right">
     <img src="{% static '01.png' %}" style="padding-top: 10rem; padding-right: 3rem; width: 700px;">
 </div>
 
+{% if user.is_authenticated %}
 <!-- 새로운 회의 만들 때 사용하는 모달 -->
 <div class="modal micromodal-slide" id="new-meeting-modal" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -119,7 +122,7 @@
                 회의 이름과 회의에서 사용하실 이름을 적어주세요.
                 <br>
                 <br>
-                <form id="new-meeting-form">
+                <form id="new-meeting-form" method="POST" action="{% url 'meeting_create' %}">
                     <div class="form-group">
                         <label for="meeting-name"><strong>회의 이름</strong></label>
                         <input type="text" class="form-control" id="new-meeting-name" placeholder="회의 이름을 적어주세요."
@@ -141,6 +144,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <!-- 기존 회의 참가할 때 사용하는 모달 -->
 <div class="modal micromodal-slide" id="enter-meeting-modal" aria-hidden="true">
