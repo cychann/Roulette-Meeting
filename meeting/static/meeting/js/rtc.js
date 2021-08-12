@@ -395,18 +395,18 @@ window.addEventListener('load', () => {
         }
 
 
-        //Chat textarea
-        document.getElementById('chat-input').addEventListener('keypress', (e) => {
-            if (e.which === 13 && (e.target.value.trim())) {
-                e.preventDefault();
+        // //Chat textarea
+        // document.getElementById('chat-input').addEventListener('keypress', (e) => {
+        //     if (e.which === 13 && (e.target.value.trim())) {
+        //         e.preventDefault();
 
-                sendMsg(e.target.value);
+        //         sendMsg(e.target.value);
 
-                setTimeout(() => {
-                    e.target.value = '';
-                }, 50);
-            }
-        });
+        //         setTimeout(() => {
+        //             e.target.value = '';
+        //         }, 50);
+        //     }
+        // });
         document.getElementById('random').addEventListener('click', (e) => runRandom())
 
 
@@ -414,7 +414,7 @@ window.addEventListener('load', () => {
         document.getElementById('toggle-video').addEventListener('click', (e) => {
             e.preventDefault();
             var img1 = document.getElementById("img1");
-            
+
             let elem = document.getElementById('toggle-video');
 
             if (myStream.getVideoTracks()[0].enabled) {
@@ -424,7 +424,7 @@ window.addEventListener('load', () => {
                 myStream.getVideoTracks()[0].enabled = false;
             }
             else {
-                
+
                 img1.src = videoOff
                 elem.setAttribute('title', 'Hide Video');
 
@@ -443,14 +443,14 @@ window.addEventListener('load', () => {
 
             if (myStream.getAudioTracks()[0].enabled) {
                 img2.src = audioOff
-                
+
                 elem.setAttribute('title', 'Unmute');
 
                 myStream.getAudioTracks()[0].enabled = false;
             }
             else {
                 img2.src = audioOn
-                
+
                 elem.setAttribute('title', 'Mute');
 
                 myStream.getAudioTracks()[0].enabled = true;
@@ -474,8 +474,8 @@ window.addEventListener('load', () => {
         document.getElementsByClassName('local-name').innerText = username;
         // console.log("유저네임 찍히나요?", username)
 
-       
 
-        
+
+
     }
 });
