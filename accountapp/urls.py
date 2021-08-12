@@ -1,9 +1,11 @@
-from django.urls import path
 from django.contrib.auth import views
-
-from accountapp.views import accountCreateView, accountDetailView, passwordUpdateView, usernameUpdateView, accountDeleteView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import path
+
 from accountapp.forms import UserLoginForm
+from accountapp.views import (accountCreateView, accountDeleteView,
+                              accountDetailView, passwordUpdateView,
+                              usernameUpdateView)
 
 app_name = "accountapp"
 

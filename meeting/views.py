@@ -1,10 +1,10 @@
 
-from django.http.response import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.http.response import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, render
 
-from meeting.models import Meeting
 from meeting.forms import MeetingForm
+from meeting.models import Meeting
 
 
 def index(request):

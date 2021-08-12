@@ -1,8 +1,7 @@
-import os
 import logging
+import os
+
 import socketio
-
-
 
 redis = os.getenv("REDIS_URL", "redis://")
 mgr = socketio.RedisManager(redis)
