@@ -1,5 +1,4 @@
 """gunicorn 설정 파일"""
-from multiprocessing import cpu_count
 from os import environ
 
 # Project

@@ -140,8 +140,8 @@ if not DEBUG:
     SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", SECRET_KEY)
     ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split()
 
-    db_default = os.environ.get("DEFAULT_POSTGRESS", "postgresql://postgres/postgres")
-    db_from_env = dj_database_url.config(conn_max_age=500, default=db_default)
+    database_url = os.environ.get("DATABASE_URL", "postgres://postgres:postgres@localhost:5432/postgres")
+    db_from_env = dj_database_url.config(conn_max_age=500, default=database_url)
     DATABASES['default'].update(db_from_env)
 
     CACHES = {
