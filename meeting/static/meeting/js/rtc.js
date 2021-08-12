@@ -61,13 +61,13 @@ window.addEventListener('load', () => {
             });
 
 
-            socket.on('ice candidates', async (data) => {
-                console.log("되냐?", socket)
-                console.log("pc충", pc)
-                console.log("저장하냐구~~", clientList)
-                console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
-                await pc[data.sender].addIceCandidate(new RTCIceCandidate(data.candidate));
-            });
+            // socket.on('ice candidates', async (data) => {
+            //     console.log("되냐?", socket)
+            //     console.log("pc충", pc)
+            //     console.log("저장하냐구~~", clientList)
+            //     console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
+            //     await pc[data.sender].addIceCandidate(new RTCIceCandidate(data.candidate));
+            // });
 
 
             socket.on('sdp', async (data) => {
@@ -227,7 +227,7 @@ window.addEventListener('load', () => {
 
                 else {
                     //video elem
-                    console.log("여기였나..", clientList[partnerName])
+                    // console.log("여기였나..", clientList[partnerName])
                     let newVid = document.createElement('video');
                     newVid.id = `${partnerName}-video`;
                     newVid.srcObject = str;
@@ -413,19 +413,19 @@ window.addEventListener('load', () => {
         //When the video icon is clicked
         document.getElementById('toggle-video').addEventListener('click', (e) => {
             e.preventDefault();
-
+            var img1 = document.getElementById("img1");
+            
             let elem = document.getElementById('toggle-video');
 
             if (myStream.getVideoTracks()[0].enabled) {
-                e.target.classList.remove('fa-video');
-                e.target.classList.add('fa-video-slash');
+                img1.src = videoOn
                 elem.setAttribute('title', 'Show Video');
 
                 myStream.getVideoTracks()[0].enabled = false;
             }
             else {
-                e.target.classList.remove('fa-video-slash');
-                e.target.classList.add('fa-video');
+                
+                img1.src = videoOff
                 elem.setAttribute('title', 'Hide Video');
 
                 myStream.getVideoTracks()[0].enabled = true;
@@ -438,19 +438,19 @@ window.addEventListener('load', () => {
         //When the mute icon is clicked
         document.getElementById('toggle-mute').addEventListener('click', (e) => {
             e.preventDefault();
-
+            var img2 = document.getElementById("img2");
             let elem = document.getElementById('toggle-mute');
 
             if (myStream.getAudioTracks()[0].enabled) {
-                e.target.classList.remove('fa-microphone-alt');
-                e.target.classList.add('fa-microphone-alt-slash');
+                img2.src = audioOff
+                
                 elem.setAttribute('title', 'Unmute');
 
                 myStream.getAudioTracks()[0].enabled = false;
             }
             else {
-                e.target.classList.remove('fa-microphone-alt-slash');
-                e.target.classList.add('fa-microphone-alt');
+                img2.src = audioOn
+                
                 elem.setAttribute('title', 'Mute');
 
                 myStream.getAudioTracks()[0].enabled = true;
@@ -472,53 +472,10 @@ window.addEventListener('load', () => {
             }
         });
         document.getElementsByClassName('local-name').innerText = username;
-        console.log("유저네임 찍히나요?", username)
+        // console.log("유저네임 찍히나요?", username)
 
-        //When record button is clicked
-        document.getElementById('record').addEventListener('click', (e) => {
-            /**
-             * Ask user what they want to record.
-             * Get the stream based on selection and start recording
-             */
-            if (!mediaRecorder || mediaRecorder.state == 'inactive') {
-                h.toggleModal('recording-options-modal', true);
-            }
-            else if (mediaRecorder.state == 'paused') {
-                mediaRecorder.resume();
-            }
-            else if (mediaRecorder.state == 'recording') {
-                mediaRecorder.stop();
-            }
-        });
+       
 
-
-        //When user choose to record screen
-        document.getElementById('record-screen').addEventListener('click', () => {
-            h.toggleModal('recording-options-modal', false);
-
-            if (screen && screen.getVideoTracks().length) {
-                startRecording(screen);
-            }
-            else {
-                h.shareScreen().then((screenStream) => {
-                    startRecording(screenStream);
-                }).catch(() => { });
-            }
-        });
-
-
-        //When user choose to record own video
-        document.getElementById('record-video').addEventListener('click', () => {
-            h.toggleModal('recording-options-modal', false);
-
-            if (myStream && myStream.getTracks().length) {
-                startRecording(myStream);
-            }
-            else {
-                h.getUserFullMedia().then((videoStream) => {
-                    startRecording(videoStream);
-                }).catch(() => { });
-            }
-        });
+        
     }
 });
