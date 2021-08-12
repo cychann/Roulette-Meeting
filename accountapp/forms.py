@@ -1,9 +1,27 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm
 from django.utils.translation import gettext, gettext_lazy as _
 
 from accountapp.models import UserModel
+
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    username = forms.CharField(
+        label="아이디",
+        widget=forms.TextInput(
+            attrs={'placeholder': '아이디 입력', }))
+    password = forms.CharField(
+        label="비밀번호",
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': '비밀번호 입력',
+            }
+        ))
 
 
 class RegisterForm(UserCreationForm):
