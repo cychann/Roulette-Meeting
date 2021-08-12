@@ -61,13 +61,13 @@ window.addEventListener('load', () => {
             });
 
 
-            // socket.on('ice candidates', async (data) => {
-            //     console.log("되냐?", socket)
-            //     console.log("pc충", pc)
-            //     console.log("저장하냐구~~", clientList)
-            //     console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
-            //     await pc[data.sender].addIceCandidate(new RTCIceCandidate(data.candidate));
-            // });
+            socket.on('ice candidates', async (data) => {
+                console.log("되냐?", socket)
+                console.log("pc충", pc)
+                console.log("저장하냐구~~", clientList)
+                console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
+                await pc[data.sender].addIceCandidate(new RTCIceCandidate(data.candidate));
+            });
 
 
             socket.on('sdp', async (data) => {
@@ -214,7 +214,7 @@ window.addEventListener('load', () => {
             pc[partnerName].onicecandidate = ({ candidate }) => {
                 const data = { candidate: candidate, to: partnerName, sender: socketId, username: username };
                 console.log("emit 'ice candidates' : ", data)
-                socket.emit('ice candidates', data);
+                candidate ? socket.emit('ice candidates', data) : "";
             };
 
 
