@@ -1,5 +1,5 @@
 
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 import os
@@ -17,8 +17,11 @@ sio = socketio.Server(async_mode='eventlet', client_manager=mgr)
 
 
 def index(request):
-    meeting = get_object_or_404(Meeting, id=request.GET.get("room"))
-    return render(request, 'meeting/index.html', {"meeting": meeting})
+    try:
+        meeting = get_object_or_404(Meeting, id=request.GET.get("room"))
+        return render(request, 'meeting/index.html', {"meeting": meeting})
+    except:
+        return HttpResponse(status=404)
 
 
 @login_required
