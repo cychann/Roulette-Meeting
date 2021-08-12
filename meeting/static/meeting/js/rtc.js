@@ -226,35 +226,34 @@ window.addEventListener('load', () => {
                 }
 
                 else {
+                    //create a new div for card
+                    let newDiv = document.createElement('div');
+                    newDiv.className = 'row';
+                    newDiv.id = partnerName;
+
                     //video elem
-                    // console.log("여기였나..", clientList[partnerName])
                     let newVid = document.createElement('video');
                     newVid.id = `${partnerName}-video`;
                     newVid.srcObject = str;
                     newVid.autoplay = true;
                     newVid.className = 'remote-video';
 
-                    //video controls elements
-                    let controlDiv = document.createElement('div');
-                    controlDiv.className = 'remote-video-controls';
-                    controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
-                        <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
+                    // //video controls elements
+                    // let controlDiv = document.createElement('div');
+                    // controlDiv.className = 'remote-video-controls';
+                    // controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
+                    //     <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
+                    // newDiv.appendChild(controlDiv);
 
-                    //create a new div for card
-                    let cardDiv = document.createElement('div');
-                    cardDiv.className = 'card card-sm';
-                    cardDiv.id = partnerName;
-                    cardDiv.appendChild(newVid);
-                    cardDiv.appendChild(controlDiv);
-
+                    newDiv.appendChild(newVid);
 
                     //username
                     let nameDiv = document.createElement('div');
                     nameDiv.innerText = clientList[partnerName];
                     nameDiv.style.textAlign = 'center';
-                    cardDiv.appendChild(nameDiv);
+                    newDiv.appendChild(nameDiv);
                     //put div in main-section elem
-                    document.getElementById('videos').appendChild(cardDiv);
+                    document.getElementById('people').appendChild(newDiv);
 
                     h.adjustVideoElemSize();
                 }
@@ -472,10 +471,5 @@ window.addEventListener('load', () => {
             }
         });
         document.getElementsByClassName('local-name').innerText = username;
-        // console.log("유저네임 찍히나요?", username)
-
-
-
-
     }
 });
