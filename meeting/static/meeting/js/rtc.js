@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
                     if (randomList.contain(randomSelectedUserId)) {
                         // console.log("rtc.js socket on random ", data)
                         MicroModal.show('random-user-modal');
-                        randomSelectedUserId = data.choice.socketId;
+                        randomSelectedUserId = data.choice;
                         document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
                         setTimeout(() => {
                             document.querySelector("#boom-sound").play()
