@@ -1,51 +1,40 @@
-body{
+body {
   background-image: url("./배경.png");
   color: white;
-  height: 100%;
 }
 
-img{
-  width:3rem;
+img {
+  width: 3rem;
   height: 3rem;
-
-} 
-
-.local-video {
-  bottom: 0;
-  left: 0;
-  /* position: relative; */
-  width: 15vw;
-  height: 7.5vw;
-  margin-bottom: 1rem;
 }
 
-.people{
+.people {
   width: 15vw;
 }
 
 .main {
-  /* padding-top: 40px; */
-  height: 70vh;
-  width:85vw;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.main_container{
-  display: flex;
+.main-video {
   flex: 1;
 }
 
-.text-white{
+.text-white {
   font-weight: 700;
 }
 
-.icon_container{
-  
-  
-  width:100%;
-  display : flex;
+.icon_container {
+  min-height: 60px;
+  width: 100%;
+  display: flex;
   justify-content: space-between;
-  
 }
+
+/* ----  */
 
 .chat-col {
   right: -100vw;
@@ -111,8 +100,6 @@ img{
   overflow-x: scroll;
 }
 
-
-
 .remote-video {
   width: 100%;
   height: auto;
@@ -135,11 +122,8 @@ img{
   visibility: visible;
 }
 
-
-
 .local-name {
   float: right;
-  
 }
 
 .mirror-mode {

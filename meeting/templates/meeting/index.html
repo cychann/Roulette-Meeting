@@ -23,9 +23,10 @@
             overflow-y: auto;
         }
 
-        video {
+        .people>.row>video {
             width: 100%;
             height: 15vh;
+            object-fit: cover !important;
         }
 
         .modal__overlay {
@@ -69,6 +70,7 @@
 
 
 <body style="height: 100%;">
+    <!-- Boom modal -->
     <div class="modal micromodal-slide" id="random-user-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
             <div class="modal__container modal_full_container" role="dialog" aria-modal="true"
@@ -79,7 +81,9 @@
             </div>
         </div>
     </div>
-    <div style="display: flex; flex-direction: column; height: 100%;">
+
+    <!-- Body -->
+    <div class="main">
         <nav class="navbar bg-info rounded-0 d-print-none" style="background-color: rgba(0, 0, 0, 0) !important;">
             <div class="text-white">Video Call</div>
 
@@ -94,15 +98,16 @@
 
             </div>
         </nav>
-
-        <div class="main_container">
-            <div class="main">
+        <div class="row main-video">
+            <div class="col-10">
                 <img src="{%static 'meeting/img/people.png' %}" style="width: 100%;">
             </div>
-            <div id="people" class="people">
-                <div class="row" id="local">
-                    <video class="local-video mirror-mode" volume="0" autoplay muted></video>
-                    <div class="local-name"></div>
+            <div class="col-2">
+                <div id="people" class="people">
+                    <div class="row" id="local">
+                        <video class="local-video mirror-mode" volume="0" autoplay muted></video>
+                        <div class="local-name"></div>
+                    </div>
                 </div>
             </div>
         </div>
