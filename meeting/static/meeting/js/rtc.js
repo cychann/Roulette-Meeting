@@ -122,9 +122,10 @@ window.addEventListener('load', () => {
                 MicroModal.show('random-user-modal');
                 randomSelectedUserId = data.choice.socketId;
                 document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
-                setTimeout(() => {
-                    document.getElementById('choice').innerText = `발표자:${data.choice.username}`
-                }, 200);
+                // 오류로 인해 중단
+                // setTimeout(() => {
+                //     document.getElementById('choice').innerText = `발표자:${data.choice.username}`
+                // }, 200);
                 // 애니메이션과 동기화하여 음악 재생
                 setTimeout(() => {
                     document.querySelector("#boom-sound").play()
@@ -136,12 +137,9 @@ window.addEventListener('load', () => {
         document.getElementById('random').addEventListener('click', (e) => {
             let randomList = []
             for (let c of clientList) {
-                randomList.push(c)
+                randomList.push({ socketId: c.socketId })
             }
-            randomList.push({
-                username,
-                socketId,
-            })
+            randomList.push({ socketId })
             const choice = randomList[Math.floor(Math.random() * randomList.length)]
             let data = {
                 room: room,
