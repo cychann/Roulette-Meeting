@@ -44,8 +44,8 @@ window.addEventListener('load', () => {
 
             // 미팅 룸의 ID 생성
             const formData = new FormData();
-            formData.append("name", meetingName);
-            formData.append("password", password);
+            formData.append("name", meetingName.trim());
+            formData.append("password", password.trim());
             formData.append("csrfmiddlewaretoken", csrftoken);
 
             try {
@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
                 // 유저의 이름을 session storage에 저장해두고 나중에 재접속하면 기억하도록 함
                 sessionStorage.setItem(meeting.id, JSON.stringify({ 'username': username }));
 
-                const roomLink = `${meetingRoomBaseUrl}?room=${meeting.id}`;
+                const roomLink = `${meetingRoomBaseUrl}?room=${meeting.id}&password=${password.trim()}`;
                 history.pushState({}, '', '/')
                 window.location.replace(roomLink);
             } catch (error) {
@@ -84,12 +84,13 @@ window.addEventListener('load', () => {
         // form이 valid 할 시 새 회의를 만들고 사용자를 redirect
         const meetingName = document.getElementById("enter-meeting-name").value;
         const username = document.getElementById("username-for-enter-meeting").value;
+        const password = document.getElementById("password-for-enter-meeting").value;
 
         // 유저의 이름을 session storage에 저장해두고 나중에 재접속하면 기억하도록 함
         sessionStorage.setItem(meetingName, JSON.stringify({ 'username': username }));
 
         // 미팅 룸의 링크를 생성하고 사용자를 redirect
-        const roomLink = `${meetingRoomBaseUrl}?room=${meetingName.trim()} `;
+        const roomLink = `${meetingRoomBaseUrl}?room=${meetingName.trim()}&password=${password.trim()}`;
         history.pushState({}, '', '/')
         window.location.replace(roomLink);
     });

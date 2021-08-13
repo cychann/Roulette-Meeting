@@ -10,9 +10,12 @@ from meeting.models import Meeting
 def index(request):
     try:
         meeting = get_object_or_404(Meeting, id=request.GET.get("room"))
+        print(meeting.password, request.GET.get("password"))
+        if meeting.password != request.GET.get("password"):
+            return JsonResponse({"error": "권한이 없습니다."}, status=400)
         return render(request, 'meeting/index.html', {"meeting": meeting})
     except:
-        return HttpResponse(status=404)
+        return JsonResponse({"error":"존재하지 않는 회의입니다."},status=404)
 
 
 @login_required
