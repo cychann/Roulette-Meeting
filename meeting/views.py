@@ -15,7 +15,7 @@ def index(request):
             return JsonResponse({"error": "권한이 없습니다."}, status=400)
         return render(request, 'meeting/index.html', {"meeting": meeting})
     except:
-        return JsonResponse({"error":"존재하지 않는 회의입니다."},status=404)
+        return JsonResponse({"error":"존재하지 않는 회의입니다."}, status=404)
 
 
 @login_required

@@ -118,28 +118,27 @@ window.addEventListener('load', () => {
 
             // 랜덤 유저 신호 핸들러
             socket.on('random', (data) => {
-                console.log("rtc.js socket on random ", data)
-                MicroModal.show('random-user-modal');
-                randomSelectedUserId = data.choice.socketId;
-                document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
-                // 오류로 인해 중단
-                // setTimeout(() => {
-                //     document.getElementById('choice').innerText = `발표자:${data.choice.username}`
-                // }, 200);
-                // 애니메이션과 동기화하여 음악 재생
-                setTimeout(() => {
-                    document.querySelector("#boom-sound").play()
-                }, 1100)
+                try {
+
+                    setTimeout(() => {
+                        console.log("rtc.js socket on random ", data)
+                        MicroModal.show('random-user-modal');
+                        randomSelectedUserId = data.choice.socketId;
+                        document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
+                        setTimeout(() => {
+                            document.querySelector("#boom-sound").play()
+                        }, 1100)
+                    }, 500)
+                } catch (e) {
+                    console.error(e);
+                    MicroModal.close('random-user-modal');
+                }
             })
         });
 
         // 랜덤 유저 신호 보내기
         document.getElementById('random').addEventListener('click', (e) => {
-            let randomList = []
-            for (let c of clientList) {
-                randomList.push({ socketId: c.socketId })
-            }
-            randomList.push({ socketId })
+            const randomList = [...document.querySelectorAll("video")].map(e => e.id);
             const choice = randomList[Math.floor(Math.random() * randomList.length)]
             let data = {
                 room: room,
