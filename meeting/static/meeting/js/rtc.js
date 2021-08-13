@@ -1,6 +1,7 @@
 import h from './helpers.js';
 console.log("this is rtc.js")
 window.addEventListener('load', () => {
+
     const room = h.getQString(window.location.href, "room");
     const state = JSON.parse(sessionStorage.getItem(room)) || {};
     const username = state.username;
@@ -18,7 +19,8 @@ window.addEventListener('load', () => {
         }
 
         var pc = [];
-        let clientList = [];
+        let clientList = new Set();
+        let clientIdNameObject = {};
         let socket = io('/stream')
         var socketId = '';
         var randomNumber = `__${h.generateRandomString()}__${h.generateRandomString()}__`;
@@ -26,6 +28,7 @@ window.addEventListener('load', () => {
         var screen = '';
         var recordedStream = [];
         var mediaRecorder = '';
+        let randomSelectedUserId = '';
 
         //Get user video by default
         getAndSetUserStream();
@@ -33,6 +36,7 @@ window.addEventListener('load', () => {
         socket.on('connect', () => {
             //set socketId
             socketId = socket.io.engine.id;
+            document.querySelector('#local > video').id = `${socketId}-video`
             document.getElementById('randomNumber').innerText = randomNumber;
             console.log("rtc.js socket on connect", socketId, room)
 
@@ -47,7 +51,7 @@ window.addEventListener('load', () => {
                 socket.emit('newUserStart', { to: data.socketId, sender: socketId, username: username });
                 console.log("rtc.js socket on connect on new user", socketId, room, data)
                 pc.push(data.socketId);
-                clientList.push(data.socketId)
+                clientList.add(data.socketId)
                 init(true, data.socketId, data.username);
             });
 
@@ -55,16 +59,13 @@ window.addEventListener('load', () => {
 
             socket.on('newUserStart', (data) => {
                 pc.push(data.sender);
-                clientList.push(data.sender)
+                clientList.add(data.sender)
                 console.log("rtc.js socket on connect on new user start", socketId, room, data)
                 init(false, data.sender, data.username);
             });
 
 
             socket.on('ice candidates', async (data) => {
-                console.log("되냐?", socket)
-                console.log("pc충", pc)
-                console.log("저장하냐구~~", clientList)
                 console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
                 await pc[data.sender].addIceCandidate(new RTCIceCandidate(data.candidate));
             });
@@ -77,7 +78,7 @@ window.addEventListener('load', () => {
                     data.description ? await pc[data.sender].setRemoteDescription(new RTCSessionDescription(data.description)) : '';
 
                     h.getUserFullMedia().then(async (stream) => {
-                        if (!document.getElementById('local').srcObject) {
+                        if (!document.querySelector('#local > video').srcObject) {
                             h.setLocalStream(stream);
                         }
 
@@ -115,10 +116,44 @@ window.addEventListener('load', () => {
                 console.log("rtc.js socket on connect on chat", data)
                 h.addChat(data, 'remote');
             });
+
+            // 랜덤 유저 신호 핸들러
             socket.on('random', (data) => {
                 console.log("rtc.js socket on random ", data)
-                document.getElementById('choice').innerText = `발표자:${data.choice}`
+                MicroModal.show('random-user-modal');
+                document.getElementById('choice').innerText = `발표자:${data.choice.username}`
+
+                randomSelectedUserId = data.choice.socketId;
+                console.log(randomSelectedUserId);
+                document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
             })
+        });
+
+
+        // 랜덤 유저 신호 보내기
+        document.getElementById('random').addEventListener('click', (e) => {
+            let randomList = []
+            for (let c of clientList) {
+                randomList.push(c)
+            }
+            randomList.push({
+                username,
+                socketId,
+            })
+            const choice = randomList[Math.floor(Math.random() * randomList.length)]
+            let data = {
+                room: room,
+                sender: username,
+                choice: choice
+            }
+            document.getElementById('choice').innerText = `발표자:${choice}`
+            socket.emit('random', data)
+        });
+
+        // 랜덤 유저 모달 닫기 및 유저 비디오 원위치
+        document.getElementById("random-user-modal").addEventListener("click", (event) => {
+            document.getElementById(`${randomSelectedUserId}-video`).classList.remove("center_video");
+            MicroModal.close("random-user-modal");
         });
 
 
@@ -149,25 +184,12 @@ window.addEventListener('load', () => {
             h.addChat(data, 'local');
         }
 
-        function runRandom() {
-            let randomList = []
-            for (let c of clientList) {
-                randomList.push(clientList[c])
-            }
-            randomList.push(username)
-            const choice = randomList[Math.floor(Math.random() * randomList.length)]
-            let data = {
-                room: room,
-                sender: username,
-                choice: choice
-            }
-            document.getElementById('choice').innerText = `발표자:${choice}`
-            socket.emit('random', data)
-        }
-
         function init(createOffer, partnerName, name) {
             pc[partnerName] = new RTCPeerConnection(h.getIceServer());
             clientList[partnerName] = name
+            clientIdNameObject.partnerName = {
+                name, partnerName
+            }
             console.log("run init", createOffer, partnerName, name)
             if (screen && screen.getTracks().length) {
                 console.log("init if getTracks", pc[partnerName])
@@ -406,7 +428,6 @@ window.addEventListener('load', () => {
         //         }, 50);
         //     }
         // });
-        document.getElementById('random').addEventListener('click', (e) => runRandom())
 
 
         //When the video icon is clicked
@@ -441,16 +462,16 @@ window.addEventListener('load', () => {
             let elem = document.getElementById('toggle-mute');
 
             if (myStream.getAudioTracks()[0].enabled) {
-                img2.src = audioOff
+                img2.src = audioOn
 
-                elem.setAttribute('title', 'Unmute');
+                elem.setAttribute('title', 'Mute');
 
                 myStream.getAudioTracks()[0].enabled = false;
             }
             else {
-                img2.src = audioOn
+                img2.src = audioOff
 
-                elem.setAttribute('title', 'Mute');
+                elem.setAttribute('title', 'Unmute');
 
                 myStream.getAudioTracks()[0].enabled = true;
             }
