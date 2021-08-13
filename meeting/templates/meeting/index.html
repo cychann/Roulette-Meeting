@@ -23,7 +23,7 @@
             overflow-y: auto;
         }
 
-        .people>.row>video {
+        .video-container>video {
             width: 20vh;
             height: 15vh;
             object-fit: cover !important;
@@ -112,9 +112,11 @@
             </div>
             <div class="col-2">
                 <div id="people" class="people">
-                    <div class="row justify-content-center" id="local">
-                        <video class="local-video mirror-mode" volume="0" autoplay muted></video>
-                        <div class="local-name"></div>
+                    <div class="row justify-content-center">
+                        <div class="d-flex flex-column video-container justify-content-center align-items-center">
+                            <video class="local-video mirror-mode" volume="0" autoplay muted></video>
+                            <div id="local-name" class="text-center username-container"></div>
+                        </div>
                     </div>
                 </div>
             </div>

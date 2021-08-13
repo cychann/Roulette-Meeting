@@ -104,12 +104,6 @@ img {
   overflow-x: scroll;
 }
 
-.remote-video {
-  width: 100%;
-  height: auto;
-  max-height: 90vh;
-}
-
 .remote-video-controls {
   position: absolute;
   bottom: 0;
@@ -126,8 +120,11 @@ img {
   visibility: visible;
 }
 
-.local-name {
-  float: right;
+.username-container {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .mirror-mode {

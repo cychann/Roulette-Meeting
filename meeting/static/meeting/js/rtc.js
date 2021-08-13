@@ -26,8 +26,6 @@ window.addEventListener('load', () => {
         var randomNumber = `__${h.generateRandomString()}__${h.generateRandomString()}__`;
         var myStream = '';
         var screen = '';
-        var recordedStream = [];
-        var mediaRecorder = '';
         let randomSelectedUserId = '';
         let focusedVideo = '';
 
@@ -165,16 +163,27 @@ window.addEventListener('load', () => {
         function addEventListenerClickFocusVideo(videoElement) {
             videoElement.addEventListener("click", (event) => {
                 if (focusedVideo) {
+                    let togetherDiv = focusedVideo.parentElement;
+                    const peopleContainer = document.createElement("div");
+                    peopleContainer.className = "row justify-content-center";
+                    peopleContainer.appendChild(togetherDiv);
+
                     focusedVideo.classList.remove("focused-video")
-                    document.getElementById("people").appendChild(focusedVideo);
+                    document.getElementById("people").appendChild(peopleContainer);
                 }
+                // 새로운 focused video
                 focusedVideo = event.target;
-                focusedVideoContainer.appendChild(focusedVideo);
+                let togetherDiv = focusedVideo.parentElement;
+                const removeTargetDiv = togetherDiv.parentElement;
+                focusedVideoContainer.appendChild(togetherDiv);
                 focusedVideo.classList.add("focused-video")
+                removeTargetDiv.remove();
             });
         }
+
         // 내 비디오에도 추가
         addEventListenerClickFocusVideo(document.querySelector('video.local-video'));
+        // 내 유저네임 추가
 
 
         function getAndSetUserStream() {
@@ -267,39 +276,35 @@ window.addEventListener('load', () => {
                 if (document.getElementById(`${partnerName}-video`)) {
                     document.getElementById(`${partnerName}-video`).srcObject = str;
                 } else {
-                    //create a new div for card
-                    let newDiv = document.createElement('div');
-                    newDiv.className = 'row justify-content-center';
-                    newDiv.id = partnerName;
+                    // row div
+                    let rowDiv = document.createElement('div');
+                    rowDiv.className = 'row justify-content-center';
+                    rowDiv.id = partnerName;
 
-                    //video elem
+                    // column div
+                    let columnDiv = document.createElement('div');
+                    columnDiv.className = "d-flex flex-column video-container justify-content-center align-items-center";
+
+                    // 비디오 
                     let newVid = document.createElement('video');
                     newVid.id = `${partnerName}-video`;
                     newVid.srcObject = str;
                     newVid.autoplay = true;
-                    newVid.className = 'remote-video';
 
-                    // //video controls elements
-                    // let controlDiv = document.createElement('div');
-                    // controlDiv.className = 'remote-video-controls';
-                    // controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
-                    //     <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
-                    // newDiv.appendChild(controlDiv);
-
-                    newDiv.appendChild(newVid);
-
-                    //username
+                    // 유저네임
                     let nameDiv = document.createElement('div');
                     nameDiv.innerText = clientList[partnerName];
-                    nameDiv.style.textAlign = 'center';
-                    newDiv.appendChild(nameDiv);
+                    nameDiv.className = "text-center username-container";
+
+                    columnDiv.appendChild(newVid);
+                    columnDiv.appendChild(nameDiv);
+                    rowDiv.appendChild(columnDiv);
+
                     //put div in main-section elem
-                    document.getElementById('people').appendChild(newDiv);
+                    document.getElementById('people').appendChild(rowDiv);
 
                     // 비디오 클릭시 전체화면 이벤트 등록
                     addEventListenerClickFocusVideo(document.getElementById(`${partnerName}-video`));
-
-                    h.adjustVideoElemSize();
                 }
             };
 
@@ -466,6 +471,6 @@ window.addEventListener('load', () => {
                 shareScreen();
             }
         });
-        document.getElementsByClassName('local-name').innerText = username;
+        document.getElementById('local-name').innerText = username;
     }
 });
