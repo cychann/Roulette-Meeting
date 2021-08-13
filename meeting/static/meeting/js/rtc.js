@@ -1,5 +1,5 @@
 import h from './helpers.js';
-console.log("this is rtc.js")
+// console.log("this is rtc.js")
 window.addEventListener('load', () => {
 
     const room = h.getQString(window.location.href, "room");
@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
 
     else {
         let commElem = document.getElementsByClassName('room-comm');
-        console.log("rtc.js window load into else", room, username, commElem)
+        // console.log("rtc.js window load into else", room, username, commElem)
         for (let i = 0; i < commElem.length; i++) {
             commElem[i].attributes.removeNamedItem('hidden');
         }
@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
             socketId = socket.io.engine.id;
             document.querySelector('video.local-video').id = `${socketId}-video`
             document.getElementById('randomNumber').innerText = randomNumber;
-            console.log("rtc.js socket on connect", socketId, room)
+            // console.log("rtc.js socket on connect", socketId, room)
 
             socket.emit('subscribe', {
                 room: room,
@@ -48,7 +48,7 @@ window.addEventListener('load', () => {
 
             socket.on('new user', (data) => {
                 socket.emit('newUserStart', { to: data.socketId, sender: socketId, username: username });
-                console.log("rtc.js socket on connect on new user", socketId, room, data)
+                // console.log("rtc.js socket on connect on new user", socketId, room, data)
                 pc.push(data.socketId);
                 clientList.add(data.socketId)
                 init(true, data.socketId, data.username);
@@ -59,21 +59,21 @@ window.addEventListener('load', () => {
             socket.on('newUserStart', (data) => {
                 pc.push(data.sender);
                 clientList.add(data.sender)
-                console.log("rtc.js socket on connect on new user start", socketId, room, data)
+                // console.log("rtc.js socket on connect on new user start", socketId, room, data)
                 init(false, data.sender, data.username);
             });
 
 
             socket.on('ice candidates', async (data) => {
-                console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
+                // console.log("rtc.js socket on connect on icd candidates", socketId, room, data)
                 await pc[data.sender].addIceCandidate(new RTCIceCandidate(data.candidate));
             });
 
 
             socket.on('sdp', async (data) => {
-                console.log("rtc.js socket on connect on sdp", socketId, room, data)
+                // console.log("rtc.js socket on connect on sdp", socketId, room, data)
                 if (data.description.type === 'offer') {
-                    console.log("rtc.js socket on connect on sdp in if", room, data.description.type, data.sender)
+                    // console.log("rtc.js socket on connect on sdp in if", room, data.description.type, data.sender)
                     data.description ? await pc[data.sender].setRemoteDescription(new RTCSessionDescription(data.description)) : '';
 
                     h.getUserFullMedia().then(async (stream) => {
@@ -98,37 +98,39 @@ window.addEventListener('load', () => {
                             sender: socketId,
                             username: username,
                         };
-                        console.log("emit 'sdp': ", emitData);
+                        // console.log("emit 'sdp': ", emitData);
                         socket.emit('sdp', emitData);
                     }).catch((e) => {
                         console.error(e);
                     });
                 }
                 else if (data.description.type === 'answer') {
-                    console.log("rtc.js socket on connect on sdp in if", room, data.description.type, data.sender)
+                    // console.log("rtc.js socket on connect on sdp in if", room, data.description.type, data.sender)
                     await pc[data.sender].setRemoteDescription(new RTCSessionDescription(data.description));
                 }
             });
 
 
             socket.on('chat', (data) => {
-                console.log("rtc.js socket on connect on chat", data)
+                // console.log("rtc.js socket on connect on chat", data)
                 h.addChat(data, 'remote');
             });
 
             // 랜덤 유저 신호 핸들러
             socket.on('random', (data) => {
+                const randomList = [...document.querySelectorAll("video")].map(e => e.id);
                 try {
-
-                    setTimeout(() => {
-                        console.log("rtc.js socket on random ", data)
+                    if (randomList.contain(randomSelectedUserId)) {
+                        // console.log("rtc.js socket on random ", data)
                         MicroModal.show('random-user-modal');
                         randomSelectedUserId = data.choice.socketId;
                         document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
                         setTimeout(() => {
                             document.querySelector("#boom-sound").play()
-                        }, 1100)
-                    }, 500)
+                        }, 1100);
+                    } else {
+                        MicroModal.close('random-user-modal');
+                    }
                 } catch (e) {
                     console.error(e);
                     MicroModal.close('random-user-modal');
@@ -184,11 +186,11 @@ window.addEventListener('load', () => {
 
 
         function getAndSetUserStream() {
-            console.log("run getAndSetUserStream()")
+            // console.log("run getAndSetUserStream()")
             h.getUserFullMedia().then((stream) => {
                 //save my stream
                 myStream = stream;
-                console.log("run getAndSetUserStream() in getUserFullMedia return stream", stream)
+                // console.log("run getAndSetUserStream() in getUserFullMedia return stream", stream)
                 h.setLocalStream(stream);
             }).catch((e) => {
                 console.error(`stream error: ${e}`);
@@ -202,7 +204,7 @@ window.addEventListener('load', () => {
                 msg: msg,
                 sender: `${username} (${randomNumber})`
             };
-            console.log("run sendmsg", data)
+            // console.log("run sendmsg", data)
             //emit chat message
             socket.emit('chat', data);
 
@@ -216,21 +218,21 @@ window.addEventListener('load', () => {
             clientIdNameObject.partnerName = {
                 name, partnerName
             }
-            console.log("run init", createOffer, partnerName, name)
+            // console.log("run init", createOffer, partnerName, name)
             if (screen && screen.getTracks().length) {
-                console.log("init if getTracks", pc[partnerName])
+                // console.log("init if getTracks", pc[partnerName])
                 screen.getTracks().forEach((track) => {
                     pc[partnerName].addTrack(track, screen);//should trigger negotiationneeded event
                 });
             }
             else if (myStream) {
-                console.log("init else if myStream", pc[partnerName])
+                // console.log("init else if myStream", pc[partnerName])
                 myStream.getTracks().forEach((track) => {
                     pc[partnerName].addTrack(track, myStream);//should trigger negotiationneeded event
                 });
             }
             else {
-                console.log("init else", pc[partnerName])
+                // console.log("init else", pc[partnerName])
                 h.getUserFullMedia().then((stream) => {
                     //save my stream
                     myStream = stream;
@@ -261,7 +263,7 @@ window.addEventListener('load', () => {
             //send ice candidate to partnerNames
             pc[partnerName].onicecandidate = ({ candidate }) => {
                 const data = { candidate: candidate, to: partnerName, sender: socketId, username: username };
-                console.log("emit 'ice candidates' : ", data)
+                // console.log("emit 'ice candidates' : ", data)
                 candidate ? socket.emit('ice candidates', data) : "";
             };
 
@@ -307,7 +309,7 @@ window.addEventListener('load', () => {
 
 
             pc[partnerName].onconnectionstatechange = (d) => {
-                console.log("init onconnectionstatechange1", pc[partnerName], d)
+                // console.log("init onconnectionstatechange1", pc[partnerName], d)
                 switch (pc[partnerName].iceConnectionState) {
                     case 'disconnected':
                     case 'failed':
@@ -322,10 +324,10 @@ window.addEventListener('load', () => {
 
 
             pc[partnerName].onsignalingstatechange = (d) => {
-                console.log("init onconnectionstatechange2", pc[partnerName], d)
+                // console.log("init onconnectionstatechange2", pc[partnerName], d)
                 switch (pc[partnerName].signalingState) {
                     case 'closed':
-                        console.log("Signalling state is 'closed'");
+                        // console.log("Signalling state is 'closed'");
                         h.closeVideo(partnerName);
                         break;
                 }
@@ -335,7 +337,7 @@ window.addEventListener('load', () => {
 
 
         function shareScreen() {
-            console.log("run shareScreen")
+            // console.log("run shareScreen")
             h.shareScreen().then((stream) => {
                 h.toggleShareIcons(true);
 
@@ -361,7 +363,7 @@ window.addEventListener('load', () => {
 
 
         function stopSharingScreen() {
-            console.log("run stopSharingScreen")
+            // console.log("run stopSharingScreen")
             //enable video toggle btn
             h.toggleVideoBtnDisabled(false);
 
@@ -380,7 +382,7 @@ window.addEventListener('load', () => {
 
 
         function broadcastNewTracks(stream, type, mirrorMode = true) {
-            console.log("run broadcastNewTracks", stream, type, mirrorMode)
+            // console.log("run broadcastNewTracks", stream, type, mirrorMode)
             h.setLocalStream(stream, mirrorMode);
 
             let track = type == 'audio' ? stream.getAudioTracks()[0] : stream.getVideoTracks()[0];
