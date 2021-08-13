@@ -4,39 +4,40 @@ import h from './helpers.js';
 window.addEventListener('load', () => {
 
     //When the chat icon is clicked
-    document.querySelector('#toggle-chat-pane').addEventListener('click', (e) => {
-        let chatElem = document.querySelector('#chat-pane');
-        let mainSecElem = document.querySelector('#main-section');
+    document.getElementById('toggle-chat-pane').addEventListener('click', (e) => {
+        console.log("toggle-chat-pane")
+        // const chatbox = document.getElementById('chatbox');
+        // const people = document.getElementById('people');
 
-        if (chatElem.classList.contains('chat-opened')) {
-            chatElem.setAttribute('hidden', true);
-            mainSecElem.classList.remove('col-md-9');
-            mainSecElem.classList.add('col-md-12');
-            chatElem.classList.remove('chat-opened');
-        }
 
-        else {
-            chatElem.attributes.removeNamedItem('hidden');
-            mainSecElem.classList.remove('col-md-12');
-            mainSecElem.classList.add('col-md-9');
-            chatElem.classList.add('chat-opened');
-        }
+        // console.log(chatbox.style.display);
+        // if (chatbox.classList.contains("d-none")) {
+        //     console.log("True, none을 없앱니다.");
+        //     chatbox.classList.remove("d-none");
+        //     people.classList.add("d-none");
+        // }
+        // else {
+        //     console.log("False, none을 붙입니다.");
+        //     chatbox.classList.add("d-none");
+        //     people.classList.remove("d-none");
+        // }
+        // console.log(chatbox.style.display);
 
-        //remove the 'New' badge on chat icon (if any) once chat is opened.
-        setTimeout(() => {
-            if (document.querySelector('#chat-pane').classList.contains('chat-opened')) {
-                h.toggleChatNotificationBadge();
-            }
-        }, 300);
+        // //remove the 'New' badge on chat icon (if any) once chat is opened.
+        // setTimeout(() => {
+        //     if (!chatbox.classList.contains("d-none")) {
+        //         h.toggleChatNotificationBadge();
+        //     }
+        // }, 300);
     });
 
-    document.addEventListener('click', (e) => {
-        if (e.target && e.target.classList.contains('expand-remote-video')) {
-            h.maximiseStream(e);
-        }
+    // document.addEventListener('click', (e) => {
+    //     if (e.target && e.target.classList.contains('expand-remote-video')) {
+    //         h.maximiseStream(e);
+    //     }
 
-        else if (e.target && e.target.classList.contains('mute-remote-mic')) {
-            h.singleStreamToggleMute(e);
-        }
-    });
+    //     else if (e.target && e.target.classList.contains('mute-remote-mic')) {
+    //         h.singleStreamToggleMute(e);
+    //     }
+    // });
 });

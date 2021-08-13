@@ -120,7 +120,7 @@
         <nav class="navbar bg-info rounded-0 d-print-none" style="background-color: rgba(0, 0, 0, 0) !important;">
             <div class="text-white">Video Call</div>
 
-            <div class="pull-right room-comm" hidden>
+            <div class="pull-right room-comm d-none" hidden>
                 <span class="text-white mr-5">
                     Unique Identifier: <span id="randomNumber"></span>
                 </span>
@@ -220,7 +220,7 @@
                         <img src="{% static 'meeting/img/screen_sharing.png' %}">
                     </button>
 
-                    <button class="btn btn-sm text-white pull-right btn-no-effect" id="toggle-chat-pane"
+                    <button class="btn btn-sm text-white pull-right btn-no-effect d-none" id="toggle-chat-pane"
                         style="margin-left:1rem;">
                         <img src="{% static 'meeting/img/chatting.png' %}">
                         <span class="badge badge-danger very-small font-weight-lighter" id="new-chat-notification"

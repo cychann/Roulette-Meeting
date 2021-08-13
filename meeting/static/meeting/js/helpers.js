@@ -176,11 +176,12 @@ export default {
 
 
     toggleChatNotificationBadge() {
+        const chatbox = document.getElementById('chatbox');
+
         console.log("run  toggleChatNotificationBadge()")
-        if (document.querySelector('#chat-pane').classList.contains('chat-opened')) {
+        if (!chatbox.classList.contains("d-none")) {
             document.querySelector('#new-chat-notification').setAttribute('hidden', true);
         }
-
         else {
             document.querySelector('#new-chat-notification').removeAttribute('hidden');
         }

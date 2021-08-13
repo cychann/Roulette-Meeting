@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     const username = state.username;
 
     if (!room || !username) {
-        alert("잘못된 접근입니다.");
+        alert("참가하기를 통해서 들어와주세요!");
         window.location.replace(window.location.origin);
     }
 
