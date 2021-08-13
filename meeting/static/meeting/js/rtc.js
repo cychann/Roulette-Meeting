@@ -119,10 +119,15 @@ window.addEventListener('load', () => {
             // 랜덤 유저 신호 핸들러
             socket.on('random', (data) => {
                 try {
-                    // console.log("rtc.js socket on random ", data)
+                    console.log("rtc.js socket on random ", data)
                     MicroModal.show('random-user-modal');
+                    removeFocusVideo();
                     randomSelectedUserId = data.choice;
-                    document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
+                    const selectedVideo = document.getElementById(`${randomSelectedUserId}`);
+                    selectedVideo.classList.add("center_video");
+                    selectedVideo.addEventListener("click", closeAndFocusRandomUserModal, { passive: true })
+
+                    // 소리 재생
                     setTimeout(() => {
                         document.querySelector("#boom-sound").play()
                     }, 1100);
@@ -142,36 +147,55 @@ window.addEventListener('load', () => {
                 sender: username,
                 choice: choice
             }
+            console.log(`random 돌립니다~! ${JSON.stringify(data)}`);
             document.getElementById('choice').innerText = `발표자:${choice}`
             socket.emit('random', data)
         });
 
-        // 랜덤 유저 모달 닫기 및 유저 비디오 원위치
-        document.getElementById("random-user-modal").addEventListener("click", (event) => {
-            document.getElementById(`${randomSelectedUserId}-video`).classList.remove("center_video");
+        // 포커스 제거
+        function removeFocusVideo() {
+            if (focusedVideo) {
+                let togetherDiv = focusedVideo.parentElement;
+                const peopleContainer = document.createElement("div");
+                peopleContainer.className = "row justify-content-center";
+                peopleContainer.appendChild(togetherDiv);
+
+                focusedVideo.classList.remove("focused-video")
+                document.getElementById("people").appendChild(peopleContainer);
+            }
+        }
+
+        // 포커스 추가
+        function focusVideo(clickedVideo) {
+            removeFocusVideo()
+
+            // 새로운 focused video
+            focusedVideo = clickedVideo;
+            let togetherDiv = focusedVideo.parentElement;
+            const removeTargetDiv = togetherDiv.parentElement;
+            focusedVideoContainer.appendChild(togetherDiv);
+            focusedVideo.classList.add("focused-video")
+            removeTargetDiv.remove();
+        }
+
+        // 랜덤 유저 모달 닫기 및 유저 비디오 포커스
+        function closeAndFocusRandomUserModal() {
+            console.log("closeAndFocusRandomUserModal");
+            const randomVideo = document.getElementById(`${randomSelectedUserId}`);
+            randomVideo.removeEventListener("click", closeAndFocusRandomUserModal, { passive: true })
+            randomVideo.classList.remove("center_video");
+            focusVideo(randomVideo)
             MicroModal.close("random-user-modal");
+        }
+        document.getElementById("random-user-modal").addEventListener("click", (event) => {
+            closeAndFocusRandomUserModal();
         });
 
         // 비디오 클릭 시 가운데로 이동
         const focusedVideoContainer = document.getElementById("focused-video-container");
         function addEventListenerClickFocusVideo(videoElement) {
             videoElement.addEventListener("click", (event) => {
-                if (focusedVideo) {
-                    let togetherDiv = focusedVideo.parentElement;
-                    const peopleContainer = document.createElement("div");
-                    peopleContainer.className = "row justify-content-center";
-                    peopleContainer.appendChild(togetherDiv);
-
-                    focusedVideo.classList.remove("focused-video")
-                    document.getElementById("people").appendChild(peopleContainer);
-                }
-                // 새로운 focused video
-                focusedVideo = event.target;
-                let togetherDiv = focusedVideo.parentElement;
-                const removeTargetDiv = togetherDiv.parentElement;
-                focusedVideoContainer.appendChild(togetherDiv);
-                focusedVideo.classList.add("focused-video")
-                removeTargetDiv.remove();
+                focusVideo(event.target);
             });
         }
 
