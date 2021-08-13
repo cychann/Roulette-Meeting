@@ -32,3 +32,5 @@ def create_meeting(request):
         "error": "잘못된 접근입니다.",
     }, status=400)
 
+def roulette(request):
+    return render(request,'roulette/roulette.html')

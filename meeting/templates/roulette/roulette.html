@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'roulette/roulette.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <img class="back" src="{% static 'roulette/back.png' %}" alt="">
+    <span class="star"></span>
+    <span class="star top01"></span>
+    <span class="star top02"></span>
+    <span class="star top03"></span>
+    
+    <img class="boom" src="{% static 'roulette/boom.png' %}" alt="">
+    <div class="svg">
+        <img class="bang" dominant-baseline="central" fill="#222" stroke="#222" stroke-linecap="round" stroke-width="1.5%" text-anchor="middle" x="50%" y="50%" src="{% static 'roulette/bang.png' %}" alt="" >
+    </div>
+    
+<center>
+    <div class="userimg-size">
+        <div class="userimg-center">
+            <img class="userimg" src="{% static 'roulette/user.png' %}" alt="">
+        </div>
+    </div>
+</center>
+
+</body>
+</html>
