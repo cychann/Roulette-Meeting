@@ -70,12 +70,14 @@
         }
 
         video.focused-video {
-            position: fixed;
             top: 4.5rem;
             bottom: 4.5rem;
             left: 2rem;
             width: 80vw !important;
             height: 60vw !important;
+            max-height: 90vh;
+            justify-self: center;
+            align-self: center;
         }
     </style>
 </head>
@@ -130,11 +132,11 @@
             </div>
         </nav>
         <div class="row main-video align-items-center">
-            <div id="focused-video-container" class="col-lg-10 col-md-7 col-sm-6 justify-content-center">
+            <div id="focused-video-container" class="col-lg-10 col-md-6 col-sm-12 justify-content-center">
             </div>
-            <div class="col-lg-2 col-md-5 col-sm-6">
+            <div class="col-lg-2 col-md-6 col-sm-12">
                 <!-- Chat Box -->
-                <div id="chatbox" style="display: none;">
+                <div id="chatbox" class="d-none">
                     <div class="row justify-content-center">
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div class="chat-box">
