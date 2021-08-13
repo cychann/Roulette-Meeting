@@ -26,9 +26,8 @@ window.addEventListener('load', () => {
         var randomNumber = `__${h.generateRandomString()}__${h.generateRandomString()}__`;
         var myStream = '';
         var screen = '';
-        var recordedStream = [];
-        var mediaRecorder = '';
         let randomSelectedUserId = '';
+        let focusedVideo = '';
 
         //Get user video by default
         getAndSetUserStream();
@@ -36,7 +35,7 @@ window.addEventListener('load', () => {
         socket.on('connect', () => {
             //set socketId
             socketId = socket.io.engine.id;
-            document.querySelector('#local > video').id = `${socketId}-video`
+            document.querySelector('video.local-video').id = `${socketId}-video`
             document.getElementById('randomNumber').innerText = randomNumber;
             console.log("rtc.js socket on connect", socketId, room)
 
@@ -78,7 +77,7 @@ window.addEventListener('load', () => {
                     data.description ? await pc[data.sender].setRemoteDescription(new RTCSessionDescription(data.description)) : '';
 
                     h.getUserFullMedia().then(async (stream) => {
-                        if (!document.querySelector('#local > video').srcObject) {
+                        if (!document.querySelector('video.local-video').srcObject) {
                             h.setLocalStream(stream);
                         }
 
@@ -121,25 +120,26 @@ window.addEventListener('load', () => {
             socket.on('random', (data) => {
                 console.log("rtc.js socket on random ", data)
                 MicroModal.show('random-user-modal');
-                document.getElementById('choice').innerText = `발표자:${data.choice.username}`
-
                 randomSelectedUserId = data.choice.socketId;
-                console.log(randomSelectedUserId);
                 document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
+                // 오류로 인해 중단
+                // setTimeout(() => {
+                //     document.getElementById('choice').innerText = `발표자:${data.choice.username}`
+                // }, 200);
+                // 애니메이션과 동기화하여 음악 재생
+                setTimeout(() => {
+                    document.querySelector("#boom-sound").play()
+                }, 1100)
             })
         });
-
 
         // 랜덤 유저 신호 보내기
         document.getElementById('random').addEventListener('click', (e) => {
             let randomList = []
             for (let c of clientList) {
-                randomList.push(c)
+                randomList.push({ socketId: c.socketId })
             }
-            randomList.push({
-                username,
-                socketId,
-            })
+            randomList.push({ socketId })
             const choice = randomList[Math.floor(Math.random() * randomList.length)]
             let data = {
                 room: room,
@@ -155,6 +155,33 @@ window.addEventListener('load', () => {
             document.getElementById(`${randomSelectedUserId}-video`).classList.remove("center_video");
             MicroModal.close("random-user-modal");
         });
+
+        // 비디오 클릭 시 가운데로 이동
+        const focusedVideoContainer = document.getElementById("focused-video-container");
+        function addEventListenerClickFocusVideo(videoElement) {
+            videoElement.addEventListener("click", (event) => {
+                if (focusedVideo) {
+                    let togetherDiv = focusedVideo.parentElement;
+                    const peopleContainer = document.createElement("div");
+                    peopleContainer.className = "row justify-content-center";
+                    peopleContainer.appendChild(togetherDiv);
+
+                    focusedVideo.classList.remove("focused-video")
+                    document.getElementById("people").appendChild(peopleContainer);
+                }
+                // 새로운 focused video
+                focusedVideo = event.target;
+                let togetherDiv = focusedVideo.parentElement;
+                const removeTargetDiv = togetherDiv.parentElement;
+                focusedVideoContainer.appendChild(togetherDiv);
+                focusedVideo.classList.add("focused-video")
+                removeTargetDiv.remove();
+            });
+        }
+
+        // 내 비디오에도 추가
+        addEventListenerClickFocusVideo(document.querySelector('video.local-video'));
+        // 내 유저네임 추가
 
 
         function getAndSetUserStream() {
@@ -243,41 +270,39 @@ window.addEventListener('load', () => {
             //add
             pc[partnerName].ontrack = (e) => {
                 let str = e.streams[0];
+
                 if (document.getElementById(`${partnerName}-video`)) {
                     document.getElementById(`${partnerName}-video`).srcObject = str;
-                }
+                } else {
+                    // row div
+                    let rowDiv = document.createElement('div');
+                    rowDiv.className = 'row justify-content-center';
+                    rowDiv.id = partnerName;
 
-                else {
-                    //create a new div for card
-                    let newDiv = document.createElement('div');
-                    newDiv.className = 'row';
-                    newDiv.id = partnerName;
+                    // column div
+                    let columnDiv = document.createElement('div');
+                    columnDiv.className = "d-flex flex-column video-container justify-content-center align-items-center";
 
-                    //video elem
+                    // 비디오 
                     let newVid = document.createElement('video');
                     newVid.id = `${partnerName}-video`;
                     newVid.srcObject = str;
                     newVid.autoplay = true;
-                    newVid.className = 'remote-video';
 
-                    // //video controls elements
-                    // let controlDiv = document.createElement('div');
-                    // controlDiv.className = 'remote-video-controls';
-                    // controlDiv.innerHTML = `<i class="fa fa-microphone text-white pr-3 mute-remote-mic" title="Mute"></i>
-                    //     <i class="fa fa-expand text-white expand-remote-video" title="Expand"></i>`;
-                    // newDiv.appendChild(controlDiv);
-
-                    newDiv.appendChild(newVid);
-
-                    //username
+                    // 유저네임
                     let nameDiv = document.createElement('div');
                     nameDiv.innerText = clientList[partnerName];
-                    nameDiv.style.textAlign = 'center';
-                    newDiv.appendChild(nameDiv);
-                    //put div in main-section elem
-                    document.getElementById('people').appendChild(newDiv);
+                    nameDiv.className = "text-center username-container";
 
-                    h.adjustVideoElemSize();
+                    columnDiv.appendChild(newVid);
+                    columnDiv.appendChild(nameDiv);
+                    rowDiv.appendChild(columnDiv);
+
+                    //put div in main-section elem
+                    document.getElementById('people').appendChild(rowDiv);
+
+                    // 비디오 클릭시 전체화면 이벤트 등록
+                    addEventListenerClickFocusVideo(document.getElementById(`${partnerName}-video`));
                 }
             };
 
@@ -369,53 +394,6 @@ window.addEventListener('load', () => {
             }
         }
 
-
-        function toggleRecordingIcons(isRecording) {
-            console.log("run toggleRecordingIcons", isRecording)
-            let e = document.getElementById('record');
-
-            if (isRecording) {
-                e.setAttribute('title', 'Stop recording');
-                e.children[0].classList.add('text-danger');
-                e.children[0].classList.remove('text-white');
-            }
-            else {
-                e.setAttribute('title', 'Record');
-                e.children[0].classList.add('text-white');
-                e.children[0].classList.remove('text-danger');
-            }
-        }
-
-
-        function startRecording(stream) {
-            console.log("run startRecording", stream)
-            mediaRecorder = new MediaRecorder(stream, {
-                mimeType: 'video/webm;codecs=vp9'
-            });
-
-            mediaRecorder.start(1000);
-            toggleRecordingIcons(true);
-
-            mediaRecorder.ondataavailable = function (e) {
-                recordedStream.push(e.data);
-            };
-
-            mediaRecorder.onstop = function () {
-                toggleRecordingIcons(false);
-
-                h.saveRecordedStream(recordedStream, username);
-
-                setTimeout(() => {
-                    recordedStream = [];
-                }, 3000);
-            };
-
-            mediaRecorder.onerror = function (e) {
-                console.error(e);
-            };
-        }
-
-
         // //Chat textarea
         // document.getElementById('chat-input').addEventListener('keypress', (e) => {
         //     if (e.which === 13 && (e.target.value.trim())) {
@@ -491,6 +469,6 @@ window.addEventListener('load', () => {
                 shareScreen();
             }
         });
-        document.getElementsByClassName('local-name').innerText = username;
+        document.getElementById('local-name').innerText = username;
     }
 });
