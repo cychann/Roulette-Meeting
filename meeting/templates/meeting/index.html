@@ -84,6 +84,37 @@
 
 
 <body style="height: 100%;">
+    <!-- Username modal -->
+    <div class="modal micromodal-slide" id="username-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-1-title">
+                        새 회의 정보를 적어주세요.
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="modal-1-content">
+                    회의 이름과 회의에서 사용하실 이름을 적어주세요.
+                    <br>
+                    <br>
+                    <form id="username-form">
+                        <div class="form-group">
+                            <label for="username-for-meeting"><strong>사용할 이름</strong></label>
+                            <input type="text" class="form-control" id="username-for-meeting"
+                                placeholder="회의에서 사용할 이름을 적어주세요." required>
+                        </div>
+                        <br>
+                        <button type="submit" class="modal__btn modal__btn-primary" id="username-btn">회의
+                            시작</button>
+                        <button type="button" class="modal__btn" data-micromodal-close
+                            aria-label="Close this dialog window">취소</button>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+
     <!-- Boom modal -->
     <div class="modal micromodal-slide" id="random-user-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -235,79 +266,9 @@
             </div>
         </div>
     </div>
-
-
-    <!-- <div class="container-fluid room-comm" hidden>
-        
-
-
-
-
-        <div class="row" id="main_container">
-            <div class="main" id="main-section">
-                <div class="row mt-2 mb-2" id="videos"></div>
-            </div>
-            <div>
-                <div class="local-name">
-                    <video class="local-video mirror-mode" id="local" volume="0" autoplay muted></video>
-                </div>
-                <div class="local-name">
-                    <video class="local-video mirror-mode" id="local" volume="0" autoplay muted></video>
-                </div>
-                <div class="local-name">
-                    <video class="local-video mirror-mode" id="local" volume="0" autoplay muted></video>
-                </div>
-            </div> -->
-
-
-
-    <!-- <div class="col-md-3 chat-col d-print-none mb-2 bg-info" id="chat-pane" hidden>
-                <div class="row">
-                    <div class="col-12 text-center h2 mb-3">CHAT</div>
-                </div>
-
-                <div id="chat-messages"></div>
-
-                <div class="row">
-                    <textarea id="chat-input" class="form-control rounded-0 chat-box border-info" rows="3"
-                        placeholder="Type here..."></textarea>
-                </div>
-            </div> -->
-    <!-- </div>
-        
-
-        <div class="row" style="background-color: rgba(0, 0, 0, 0) !important;">
-            <div class="icon_container">
-                
-                <div class="icon_container_small">
-                    <button class="btn btn-sm rounded-0 btn-no-effect" id="toggle-video" title="Hide Video" style="margin-left:0.5rem;">
-                        <img src="{% static 'meeting/img/stop_video.png' %}" id="img1">
-                    </button>
-            
-                    <button class="btn btn-sm rounded-0 btn-no-effect" id="toggle-mute" title="Mute" style="margin-left:1rem;">
-                        <img src="{% static 'meeting/img/mute.png' %}" id="img2">
-                    </button>
-            
-                    <button class="btn btn-sm rounded-0 btn-no-effect" id="share-screen" title="Share screen" style="margin-left:1rem;">
-                        <img src="{% static 'meeting/img/screen_sharing.png' %}">
-                    </button>
-                
-                    <button class="btn btn-sm text-white pull-right btn-no-effect" id="toggle-chat-pane" style="margin-left:1rem;">
-                        <img src="{% static 'meeting/img/chatting.png' %}">
-                        <span class="badge badge-danger very-small font-weight-lighter" id="new-chat-notification"
-                            hidden>New</span>
-                    </button>
-                
-                </div>
-                <button class="btn btn-sm rounded-0 btn-no-effect text-white">
-                    <a href="/" class="text-white text-decoration-none">
-                        <img src="{% static 'meeting/img/off.png' %}">
-                    </a>
-                </button>            </div>
-        </div>
-        
     </div>
-     -->
+
+
     <script>
         var videoOff = "{% static 'meeting/img/stop_video.png' %}"
         var videoOn = "{% static 'meeting/img/start_video.png' %}"

@@ -7,8 +7,30 @@ window.addEventListener('load', () => {
     const username = state.username;
 
     if (!room || !username) {
-        alert("참가하기를 통해서 들어와주세요!");
-        window.location.replace(window.location.origin);
+        MicroModal.show("username-modal", {
+            onShow: modal => console.info(`${modal.id} is shown`), // [1]
+            onClose: modal => {
+                // 다시 회의 입장
+                console.info(`${modal.id} is hidden`);
+                window.location.replace(window.location.href);
+            }
+        });
+
+        document.getElementById("username-btn").addEventListener("click", (event) => {
+            event.preventDefault();
+            const form = document.getElementById("username-form");
+
+            // 폼이 valid 하지 않았을 시 report
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // 유저의 이름을 session storage에 저장해두고 나중에 재접속하면 기억하도록 함
+            const username = document.getElementById("username-for-meeting").value;
+            sessionStorage.setItem(room, JSON.stringify({ 'username': username }));
+            window.location.replace(window.location.href);
+        });
     }
 
     else {
