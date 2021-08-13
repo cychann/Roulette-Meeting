@@ -118,19 +118,14 @@ window.addEventListener('load', () => {
 
             // 랜덤 유저 신호 핸들러
             socket.on('random', (data) => {
-                const randomList = [...document.querySelectorAll("video")].map(e => e.id);
                 try {
-                    if (randomList.contain(randomSelectedUserId)) {
-                        // console.log("rtc.js socket on random ", data)
-                        MicroModal.show('random-user-modal');
-                        randomSelectedUserId = data.choice.socketId;
-                        document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
-                        setTimeout(() => {
-                            document.querySelector("#boom-sound").play()
-                        }, 1100);
-                    } else {
-                        MicroModal.close('random-user-modal');
-                    }
+                    // console.log("rtc.js socket on random ", data)
+                    MicroModal.show('random-user-modal');
+                    randomSelectedUserId = data.choice;
+                    document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
+                    setTimeout(() => {
+                        document.querySelector("#boom-sound").play()
+                    }, 1100);
                 } catch (e) {
                     console.error(e);
                     MicroModal.close('random-user-modal');
