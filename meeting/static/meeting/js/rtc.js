@@ -121,14 +121,17 @@ window.addEventListener('load', () => {
             socket.on('random', (data) => {
                 console.log("rtc.js socket on random ", data)
                 MicroModal.show('random-user-modal');
-                document.getElementById('choice').innerText = `발표자:${data.choice.username}`
-
                 randomSelectedUserId = data.choice.socketId;
-                console.log(randomSelectedUserId);
                 document.getElementById(`${randomSelectedUserId}-video`).classList.add("center_video");
+                setTimeout(() => {
+                    document.getElementById('choice').innerText = `발표자:${data.choice.username}`
+                }, 200);
+                // 애니메이션과 동기화하여 음악 재생
+                setTimeout(() => {
+                    document.querySelector("#boom-sound").play()
+                }, 1100)
             })
         });
-
 
         // 랜덤 유저 신호 보내기
         document.getElementById('random').addEventListener('click', (e) => {
