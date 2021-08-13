@@ -8,7 +8,6 @@ from meeting.models import Meeting
 
 
 def index(request):
-    print("뭐야",request.GET.get("room"))
     try:
         meeting = get_object_or_404(Meeting, id=request.GET.get("room"))
         print(meeting.password, request.GET.get("password"))

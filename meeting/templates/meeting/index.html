@@ -11,12 +11,15 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'meeting/css/app.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'micromodal.css' %}">
+    <link rel="stylesheet" href="{% static 'roulette/roulette.css' %}">
 
     <!-- CDN CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <!-- <script src="https://kit.fontawesome.com/d736d670df.js" crossorigin="anonymous"></script> -->
+
     <style>
         .people {
             overflow-x: hidden;
@@ -85,7 +88,26 @@
             <div class="modal__container modal_full_container" role="dialog" aria-modal="true"
                 aria-labelledby="modal-1-title">
                 <main class="modal__content modal__full_content" id="modal-1-content">
-                    {% include 'roulette/roulette.html' %}
+                    <audio id="boom-sound">
+                        <source src="{% static 'roulette/boom_sound.mp3' %}" type="audio/mp3">
+                    </audio>
+
+                    <img class="back" src="{% static 'roulette/back.png' %}" alt="">
+                    <span class="star"></span>
+                    <span class="star top01"></span>
+                    <span class="star top02"></span>
+                    <span class="star top03"></span>
+
+                    <img class="boom" src="{% static 'roulette/boom.png' %}" alt="">
+
+                    <div class="roulette-content">
+                        <div class="userimg-size">
+                            <div class="userimg-center">
+                                <img class="userimg" src="{% static 'roulette/user.png' %}" alt="">
+                            </div>
+                        </div>
+                        <img class="bang" src="{% static 'roulette/bang.png' %}" alt="">
+                    </div>
                 </main>
             </div>
         </div>
@@ -111,6 +133,62 @@
             <div id="focused-video-container" class="col-lg-10 col-md-7 col-sm-6 justify-content-center">
             </div>
             <div class="col-lg-2 col-md-5 col-sm-6">
+                <!-- Chat Box -->
+                <div id="chatbox" style="display: none;">
+                    <div class="row justify-content-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div class="chat-box">
+                                <div class="chat-header">
+                                    <span class="chat-title">채팅</span>
+                                    <i class="far fa-times-circle"></i>
+                                </div>
+
+                                <hr class="hr-top">
+
+                                <div class="chat-container">
+                                    <div class="chat-info">
+                                        <span class="chat-user">최유찬 (나) :</span>
+                                    </div>
+                                    <p class="chat-content">안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕</p>
+                                </div>
+
+                                <div class="chat-container">
+                                    <div class="chat-info">
+                                        <span class="chat-user">허태정 :</span>
+                                    </div>
+                                    <p class="chat-content">룰렛룰셀뤠루ㅜ세룰렛룰셀뤠루ㅜ세룰렛룰셀뤠루ㅜ세룰렛룰셀뤠루ㅜ세룰렛룰셀뤠루ㅜ세</p>
+                                </div>
+
+                                <div class="chat-container">
+                                    <div class="chat-info">
+                                        <span class="chat-user">강승원 :</span>
+                                    </div>
+                                    <p class="chat-content">고양이고양이고양이고양이고양이고양이고양이고양이고양이고양이고양이</p>
+                                </div>
+
+                                <div class="chat-container">
+                                    <div class="chat-info">
+                                        <span class="chat-user">정지윤 :</span>
+                                    </div>
+                                    <p class="chat-content">ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ</p>
+                                </div>
+                                <div class="chat-container">
+                                    <div class="chat-info">
+                                        <span class="chat-user">김소연 :</span>
+                                    </div>
+                                    <p class="chat-content">하하하하하하하하하하하</p>
+                                </div>
+
+                                <div class="chat-bottom">
+                                    <hr class="hr-bottom">
+                                    <input type="text" class="chat-input" placeholder="메시지 입력">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- People video list -->
                 <div id="people" class="people">
                     <div class="row justify-content-center">
                         <div class="d-flex flex-column video-container justify-content-center align-items-center">
