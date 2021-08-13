@@ -462,16 +462,16 @@ window.addEventListener('load', () => {
             let elem = document.getElementById('toggle-mute');
 
             if (myStream.getAudioTracks()[0].enabled) {
-                img2.src = audioOff
+                img2.src = audioOn
 
-                elem.setAttribute('title', 'Unmute');
+                elem.setAttribute('title', 'Mute');
 
                 myStream.getAudioTracks()[0].enabled = false;
             }
             else {
-                img2.src = audioOn
+                img2.src = audioOff
 
-                elem.setAttribute('title', 'Mute');
+                elem.setAttribute('title', 'Unmute');
 
                 myStream.getAudioTracks()[0].enabled = true;
             }
