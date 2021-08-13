@@ -120,15 +120,14 @@
         <nav class="navbar bg-info rounded-0 d-print-none" style="background-color: rgba(0, 0, 0, 0) !important;">
             <div class="text-white">Video Call</div>
 
-            <div class="pull-right room-comm d-none" hidden>
-                <span class="text-white mr-5">
+            <div class="pull-right room-comm" hidden>
+                <span class="text-white mr-5 d-none">
                     Unique Identifier: <span id="randomNumber"></span>
                 </span>
 
                 <img src="{%static 'meeting/img/roulette.png' %}" id="random"
                     style="width: 3rem; height: 3rem; background-color: rgba(0, 0, 0, 0) !important;">
                 <div id="choice" style="color: white;"></div>
-
             </div>
         </nav>
         <div class="row main-video align-items-center">
