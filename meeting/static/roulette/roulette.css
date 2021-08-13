@@ -97,11 +97,12 @@ p {
 }
 
 .userimg-size {
-  width: 50%;
-  height: 50%;
+  visibility: hidden;
+  width: 37vw;
+  height: 37vw;
   z-index: 991;
-  margin-top: 150px;
 }
+
 .userimg-center {
   text-align: center;
 }
@@ -125,10 +126,9 @@ p {
 }
 
 .bang {
-  max-width: 100%;
+  width: 48vw;
   height: auto;
   z-index: 999;
-  min-width: 100%;
 }
 
 /* 검은색 별동별 */

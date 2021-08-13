@@ -18,6 +18,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <style>
+        .people {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        video {
+            width: 100%;
+            height: 15vh;
+        }
+
         .modal__overlay {
             background-color: transparent;
         }
@@ -39,9 +49,20 @@
 
         video.center_video {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            z-index: 99999;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 33vw;
+            height: 33vw;
+            margin: auto;
+            z-index: 9999;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: boom-pop 0.3s ease-in-out;
+            animation-direction: normal;
+            animation-delay: 1s;
+            animation-fill-mode: both;
         }
     </style>
 </head>
@@ -96,7 +117,7 @@
 
                     <button class="btn btn-sm rounded-0 btn-no-effect" id="toggle-mute" title="Mute"
                         style="margin-left:1rem;">
-                        <img src="{% static 'meeting/img/unmute.png' %}" id="img2">
+                        <img src="{% static 'meeting/img/mute.png' %}" id="img2">
                     </button>
 
                     <button class="btn btn-sm rounded-0 btn-no-effect" id="share-screen" title="Share screen"
