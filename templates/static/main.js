@@ -1,10 +1,3 @@
-function generateRandomString() {
-    const crypto = window.crypto || window.msCrypto;
-    let array = new Uint32Array(1);
-    console.log("run generateRandomString()", crypto, array)
-    return crypto.getRandomValues(array);
-}
-
 window.addEventListener('load', () => {
     // 새로운 회의 만들기 모달 띄우기
     try {

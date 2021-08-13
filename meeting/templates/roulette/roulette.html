@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +12,16 @@
 </head>
 
 <body>
+<audio autoplay controls>
+    <source src="{% static 'roulette/boom_sound.mp3' %}" type="audio/mp3">
+</audio>
+
     <img class="back" src="{% static 'roulette/back.png' %}" alt="">
     <span class="star"></span>
     <span class="star top01"></span>
     <span class="star top02"></span>
     <span class="star top03"></span>
-    
+
     <img class="boom" src="{% static 'roulette/boom.png' %}" alt="">
 
     <div class="roulette-content">
@@ -33,4 +38,5 @@
     
 
 </body>
+
 </html>

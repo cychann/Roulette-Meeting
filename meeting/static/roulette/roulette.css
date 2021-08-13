@@ -108,6 +108,11 @@ p {
 .userimg {
   width: 65%;
   height: 65%;
+  border-radius: 50%;
+  animation: boom-pop 0.3s ease-in-out;
+  animation-direction: normal;
+  animation-delay: 1s;
+  animation-fill-mode: both;
 }
 
 .svg {
