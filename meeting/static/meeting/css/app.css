@@ -8,6 +8,10 @@ img {
   height: 3rem;
 }
 
+.navbar {
+  min-height: 60px;
+}
+
 .people {
   width: 15vw;
 }

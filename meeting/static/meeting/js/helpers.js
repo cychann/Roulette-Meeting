@@ -274,7 +274,7 @@ export default {
 
     setLocalStream(stream, mirrorMode = true) {
         console.log("run ssetLocalStream", stream, mirrorMode)
-        const localVidElem = document.querySelector('#local > video');
+        const localVidElem = document.querySelector('video.local-video');
 
         localVidElem.srcObject = stream;
         mirrorMode ? localVidElem.classList.add('mirror-mode') : localVidElem.classList.remove('mirror-mode');

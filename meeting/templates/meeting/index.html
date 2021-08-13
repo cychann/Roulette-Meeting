@@ -24,7 +24,7 @@
         }
 
         .people>.row>video {
-            width: 100%;
+            width: 20vh;
             height: 15vh;
             object-fit: cover !important;
         }
@@ -52,10 +52,10 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 0;
-            right: 0;
-            width: 33vw;
-            height: 33vw;
+            left: -50vw;
+            right: 50vw;
+            width: 33vw !important;
+            height: 33vw !important;
             margin: auto;
             z-index: 9999;
             border-radius: 50%;
@@ -64,6 +64,15 @@
             animation-direction: normal;
             animation-delay: 1s;
             animation-fill-mode: both;
+        }
+
+        video.focused-video {
+            position: fixed;
+            top: 4.5rem;
+            bottom: 4.5rem;
+            left: 2rem;
+            width: 80vw !important;
+            height: 60vw !important;
         }
     </style>
 </head>
@@ -98,13 +107,12 @@
 
             </div>
         </nav>
-        <div class="row main-video">
-            <div class="col-10">
-                <img src="{%static 'meeting/img/people.png' %}" style="width: 100%;">
+        <div class="row main-video align-items-center">
+            <div id="focused-video-container" class="col-10 justify-content-center">
             </div>
             <div class="col-2">
                 <div id="people" class="people">
-                    <div class="row" id="local">
+                    <div class="row justify-content-center" id="local">
                         <video class="local-video mirror-mode" volume="0" autoplay muted></video>
                         <div class="local-name"></div>
                     </div>
