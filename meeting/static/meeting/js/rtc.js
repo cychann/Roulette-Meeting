@@ -145,9 +145,16 @@ window.addEventListener('load', () => {
                     MicroModal.show('random-user-modal');
                     removeFocusVideo();
                     randomSelectedUserId = data.choice;
+
+                    // 비디오 설정
                     const selectedVideo = document.getElementById(`${randomSelectedUserId}`);
                     selectedVideo.classList.add("center_video");
                     selectedVideo.addEventListener("click", closeAndFocusRandomUserModal, { passive: true })
+
+                    // 유저이름 설정
+                    const children = selectedVideo.parentElement.children;
+                    const username = children[children.length - 1];
+                    username.classList.add("center_username");
 
                     // 소리 재생
                     setTimeout(() => {
@@ -206,6 +213,11 @@ window.addEventListener('load', () => {
             const randomVideo = document.getElementById(`${randomSelectedUserId}`);
             randomVideo.removeEventListener("click", closeAndFocusRandomUserModal, { passive: true })
             randomVideo.classList.remove("center_video");
+
+            const children = randomVideo.parentElement.children;
+            const randomUsername = children[children.length - 1];
+            randomUsername.classList.remove("center_username");
+
             focusVideo(randomVideo)
             MicroModal.close("random-user-modal");
         }
